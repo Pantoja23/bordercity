@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Border City Homes | Intelligence Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00d2ff;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.1);
+            --dark-bg: #05070a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(5,7,10,0.6) 0%, rgba(5,7,10,0.9) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        #tenant-info {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--gold);
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0,210,255,0.3); }
+
+        .btn-glow {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--accent), #004e92);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,210,255,0.4);
+            transition: 0.3s;
+        }
+
+        .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 0 30px var(--accent); }
+
+        .contact-tenant {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .contact-tenant a { color: var(--gold); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-font">Border City</div>
+    <div style="font-family: 'Orbitron'; font-size: 1rem; color: white;">HOMES</div>
+    <p class="tagline">Maintenance Intelligence System</p>
+
+    <div id="tenant-info">
+        <strong style="color: var(--gold);">💡 Info Inquilino:</strong><br>
+        <span id="json-text">Cargando avisos del sistema...</span>
+    </div>
+
+    <form id="orderForm">
+        <div class="input-group">
+            <input type="text" name="Cliente" placeholder="NOMBRE COMPLETO" 
+                   style="text-transform: capitalize;" required>
+        </div>
+
+        <div class="input-group">
+            <input type="tel" id="telMask" name="Telefono" 
+                   placeholder="TELÉFONO (10 DÍGITOS)" maxlength="14" required>
+        </div>
+
+        <div class="input-group">
+            <input type="email" id="emailInput" name="Email" 
+                   placeholder="CORREO ELECTRÓNICO (@ y .com)" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="Direccion" placeholder="PROPIEDAD / DIRECCIÓN" required>
+        </div>
+
+        <div class="input-group">
+            <select name="Servicio" required>
+                <option value="" disabled selected>TIPO DE SERVICIO</option>
+                <option value="HVAC">AIR CONDITIONING / HEATING</option>
+                <option value="Plumbing">PLUMBING</option>
+                <option value="Electric">ELECTRICAL</option>
+                <option value="Appliance">APPLIANCE REPAIR</option>
+            </select>
+        </div>
+
+        <textarea name="Mensaje" rows="3" placeholder="DESCRIPCIÓN DEL REPORTE"></textarea>
+        
+        <button type="submit" class="btn-glow">DEPLOY WORK ORDER</button>
+    </form>
+
+    <div class="contact-tenant">
+        Emergencias 24/7: <a href="tel:9152828490">(915) 282-8490</a>
+    </div>
+</div>
+
+<script>
+    // --- 1. MÁSCARA DE TELÉFONO ---
+    const telInput = document.getElementById('telMask');
+    telInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, ''); 
+        let x = value.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+
+    // --- 2. VALIDACIÓN DE CORREO ---
+    const emailInput = document.getElementById('emailInput');
+    emailInput.addEventListener('blur', () => {
+        const emailValue = emailInput.value;
+        if (emailValue && (!emailValue.includes('@') || !emailValue.includes('.com'))) {
+            alert("Sistema: Ingrese un correo válido (debe incluir @ y .com)");
+            emailInput.style.borderColor = "red";
+        } else {
+            emailInput.style.borderColor = "rgba(255,255,255,0.2)";
+        }
+    });
+
+    // --- 3. ENVÍO DE DATOS A GOOGLE SHEETS ---
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que la página se recargue
+
+        const emailValue = emailInput.value;
+        if (!emailValue.endsWith('.com')) {
+            alert("Error de Seguridad: El correo debe terminar en .com");
+            return;
+        }
+
+        const btn = document.querySelector('.btn-glow');
+        btn.innerText = "SYSTEM DEPLOYING...";
+        btn.disabled = true; // Evita que le pquen dos veces
+
+        // --- EL PUENTE (CONEXIÓN) ---
+        // REEMPLAZA ESTE LINK POR EL TUYO QUE TERMINA EN /exec
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzwoBDAAwe5gHiRwG94c8RVY_8QKzm2ieeNreTSCfI8i6UcQvGcKwG-iyKrRJdzIVJK/exec';
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // Para evitar problemas de permisos de Google
+            body: new FormData(this)
+        })
+        .then(() => {
+            btn.innerText = "SUCCESSFUL DEPLOY";
+            btn.style.background = "linear-gradient(45deg, #28a745, #1e7e34)";
+            alert("Work Order " + emailValue + " has been successfully submitted to the system.");
+            this.reset(); // Limpia el formulario
+            btn.disabled = false;
+            btn.innerText = "DEPLOY WORK ORDER";
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert("System Error: No se pudo conectar con el servidor.");
+            btn.innerText = "RETRY DEPLOY";
+            btn.disabled = false;
+        });
+    });
+
+    // --- 4. CARGA DE JSON ---
+    fetch('URL_DE_TU_JSON_EN_DRIVE')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('json-text').innerText = data.avisoImportante;
+    })
+    .catch(err => {
+        document.getElementById('json-text').innerText = "Bienvenido al portal de mantenimiento de Border City.";
+    });
+</script>
+
+</body>
+</html>
