@@ -247,22 +247,19 @@
             mode: 'no-cors',
             body: new FormData(this)
         })
-        .then(() => {
-            btn.innerText = t.btnOk;
-            btn.style.background = "#28a745";
-            alert(lang === 'es' ? "¡Orden enviada con éxito!" : "Order deployed successfully!");
-            this.reset();
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.innerText = t.btn;
-                btn.style.background = "";
-            }, 3000);
-        })
-        .catch(error => {
-            alert("System Error");
-            btn.disabled = false;
-            btn.innerText = "RETRY";
-        });
+    .then(() => {
+        // Redirigir a la página de confirmación
+        // Aquí podrías añadir el ID del reporte si tu script de Apps Script lo retorna
+        window.location.href = 'confirmation.html'; 
+        // Si Apps Script te devuelve un ID, podrías hacer:
+        // window.location.href = 'confirmation.html?id=' + ID_DEL_REPORTE;
+    })
+    .catch(error => {
+        console.error('Error!', error.message);
+        alert("System Error: No se pudo conectar con el servidor.");
+        btn.disabled = false;
+        btn.innerText = "RETRY DEPLOY";
+    });
     });
 </script>
 
