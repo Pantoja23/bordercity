@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="conf-title">Confirmación de Reporte - Border City Homes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #ffcc33;
+            --background: #05070a;
+            --glass-bg: rgba(10, 15, 20, 0.85);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Evita scroll innecesario */
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+
+        .confirmation-container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0, 210, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px 25px;
+            box-shadow: 0 0 40px rgba(0,210,255,0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon-check {
+            font-size: 5rem;
+            color: #28a745; /* Verde de éxito */
+            text-shadow: 0 0 20px rgba(40, 167, 69, 0.6);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .report-id {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 25px 0;
+            text-shadow: 0 0 10px rgba(255,204,51,0.5);
+            background: rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .footer-message {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-top: 30px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--secondary), #cc9900);
+            border: none;
+            border-radius: 8px;
+            color: #1a1d21;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(255,204,51,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,204,51,0.7);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1rem; }
+            .report-id { font-size: 1.5rem; }
+            .icon-check { font-size: 4rem; }
+            .confirmation-container { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="confirmation-container">
+    <div class="icon-check">✓</div>
+    <h1 id="conf-main-title">Reporte Recibido con Éxito</h1>
+    <p id="conf-message">
+        Gracias por contactarnos. Hemos recibido su reporte y nuestro equipo está revisándolo.
+        Nos pondremos en contacto con usted lo antes posible.
+    </p>
+    <div class="report-id-section" style="display:none;">
+        <p id="conf-your-id"></p>
+        <span class="report-id" id="conf-report-id">#Cargando...</span>
+    </div>
+    <p class="footer-message" id="conf-footer-msg">
+        Su satisfacción es nuestra prioridad. Border City Homes.
+    </p>
+    <a href="index.html" class="btn-back" id="conf-btn-back">Hacer Otro Reporte</a>
+</div>
+
+<script>
+    // --- LÓGICA BILINGÜE PARA PÁGINA DE CONFIRMACIÓN ---
+    const i18n_conf = {
+        es: {
+            title: "Confirmación de Reporte - Border City Homes",
+            mainTitle: "¡Reporte Recibido con Éxito!",
+            message: "Gracias por contactarnos. Hemos recibido su reporte y nuestro equipo está revisándolo. Nos pondremos en contacto con usted lo antes posible.",
+            yourId: "Su número de reporte es:",
+            footer: "Su satisfacción es nuestra prioridad. Border City Homes.",
+            backBtn: "Hacer Otro Reporte"
+        },
+        en: {
+            title: "Report Confirmation - Border City Homes",
+            mainTitle: "Report Successfully Received!",
+            message: "Thank you for contacting us. We have received your report and our team is reviewing it. We will get back to you as soon as possible.",
+            yourId: "Your report ID is:",
+            footer: "Your satisfaction is our priority. Border City Homes.",
+            backBtn: "Submit Another Report"
+        }
+    };
+
+    const userLang = navigator.language || navigator.userLanguage;
+    const lang = userLang.startsWith('es') ? 'es' : 'en';
+    const t_conf = i18n_conf[lang];
+
+    document.getElementById('conf-title').innerText = t_conf.title;
+    document.getElementById('conf-main-title').innerText = t_conf.mainTitle;
+    document.getElementById('conf-message').innerText = t_conf.message;
+    document.getElementById('conf-your-id').innerText = t_conf.yourId;
+    document.getElementById('conf-footer-msg').innerText = t_conf.footer;
+    document.getElementById('conf-btn-back').innerText = t_conf.backBtn;
+
+    // Obtener ID del reporte si viene en la URL
+    const params = new URLSearchParams(window.location.search);
+    const reportId = params.get('id');
+    if (reportId) {
+        document.getElementById('conf-report-id').innerText = "#" + reportId;
+        document.querySelector('.report-id-section').style.display = 'block';
+    } else {
+        document.getElementById('conf-report-id').innerText = t_conf.yourId + " N/A";
+    }
+</script>
+
+</body>
+</html>
