@@ -1,306 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Border City Homes | Luxury Rentals</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00d2ff;
-            --accent: #ffcc33;
-            --bg: #030508;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(0, 210, 255, 0.3);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Border City Homes | Luxury Rentals</title>
 
-        body {
-            margin: 0;
-            font-family: 'Rajdhani', sans-serif;
-            background-color: var(--bg);
-            color: white;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #0a111a 0%, #030508 100%);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
-        /* --- NAVIGATION --- */
-        nav {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+<style>
+:root {
+  --primary:#00d2ff;
+  --accent:#ffcc33;
+  --bg:#030508;
+  --glass:rgba(255,255,255,.05);
+  --border:rgba(0,210,255,.3);
+}
+body{
+  margin:0;font-family:'Rajdhani',sans-serif;
+  background:radial-gradient(circle,#0a111a,#030508);
+  color:#fff;overflow-x:hidden;
+}
+nav{
+  padding:20px 5%;display:flex;justify-content:space-between;
+  align-items:center;position:sticky;top:0;z-index:99;
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Orbitron';font-size:1.5rem;letter-spacing:3px;
+  color:var(--primary);
+}
+.nav-links a{
+  color:#fff;text-decoration:none;margin-left:20px;
+  font-size:.9rem;text-transform:uppercase;
+}
+.nav-links a:hover{color:var(--primary)}
 
-        .logo {
-            font-family: 'Orbitron';
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-        }
+.hero{
+  height:60vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  padding:0 10%;
+  background:
+    linear-gradient(to bottom,rgba(0,0,0,.3),var(--bg)),
+    url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');
+  background-size:cover;background-position:center;
+}
+.hero h1{
+  font-family:'Orbitron';font-size:3rem;text-transform:uppercase;
+}
+.hero p{color:#ccc;max-width:600px;font-size:1.2rem}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
+.features{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;padding:50px 10%;
+}
+.feat-card{
+  background:var(--glass);padding:30px;border-radius:20px;
+  border:1px solid var(--border);text-align:center;
+}
+.feat-card h3{font-family:'Orbitron';color:var(--primary)}
 
-        .nav-links a:hover { color: var(--primary); }
+.section-title{
+  text-align:center;font-family:'Orbitron';
+  font-size:2rem;color:var(--accent);margin-top:80px;
+}
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--bg) 100%), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-        }
+.property-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:30px;padding:40px 10%;
+}
+.property-card{
+  background:var(--glass);border-radius:25px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+}
+.prop-img{
+  height:220px;background-size:cover;background-position:center;
+}
+.badge{
+  position:absolute;top:15px;right:15px;
+  background:var(--primary);color:#000;
+  padding:5px 15px;border-radius:50px;font-size:.8rem;
+}
+.prop-info{padding:20px}
+.prop-price{font-size:1.4rem;color:var(--primary);font-weight:bold}
+.prop-details{display:flex;gap:15px;color:#aaa;font-size:.9rem}
 
-        .hero h1 {
-            font-family: 'Orbitron';
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
+.btn-apply{
+  width:100%;margin-top:15px;padding:12px;
+  border:1px solid var(--primary);background:transparent;
+  color:var(--primary);border-radius:10px;
+  font-family:'Orbitron';cursor:pointer;
+}
+.btn-apply:hover{background:var(--primary);color:#000}
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 600px;
-        }
-
-        /* --- BORDER CITY ADVANTAGE (EL SERVICIO) --- */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 50px 10%;
-        }
-
-        .feat-card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: 0.4s;
-        }
-
-        .feat-card:hover {
-            background: rgba(0, 210, 255, 0.1);
-            transform: translateY(-10px);
-        }
-
-        .feat-card h3 { color: var(--primary); font-family: 'Orbitron'; margin-bottom: 15px; }
-
-        /* --- PROPERTY GRID (MOSAICOS) --- */
-        .section-title {
-            text-align: center;
-            font-family: 'Orbitron';
-            font-size: 2rem;
-            margin-top: 80px;
-            color: var(--accent);
-        }
-
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 40px 10%;
-        }
-
-        .property-card {
-            background: var(--glass);
-            border-radius: 25px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .property-card:hover {
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
-            border-color: var(--primary);
-        }
-
-        .prop-img {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary);
-            color: black;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            z-index: 10;
-        }
-
-        .prop-info { padding: 20px; }
-        .prop-price { font-size: 1.5rem; color: var(--primary); font-weight: bold; margin: 5px 0; }
-        .prop-details { display: flex; gap: 15px; color: #888; font-size: 0.9rem; }
-
-        /* Estilo para que la dirección parezca link */
-        .prop-address { cursor: pointer; transition: 0.2s; }
-        .prop-address:hover { color: var(--primary); }
-
-        .btn-apply {
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            font-family: 'Orbitron';
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .btn-apply:hover {
-            background: var(--primary);
-            color: black;
-        }
-
-        /* --- FOOTER / QUICK ACCESS --- */
-        footer {
-            margin-top: 100px;
-            padding: 50px 10%;
-            background: rgba(0,0,0,0.5);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .footer-col h4 { font-family: 'Orbitron'; color: var(--accent); }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li { margin: 10px 0; }
-        .footer-col a { color: #aaa; text-decoration: none; }
-
-        /* Loader para cuando descarga los datos */
-        #db-loader { text-align: center; color: var(--primary); font-family: 'Orbitron'; padding: 20px; }
-    </style>
+footer{
+  margin-top:100px;padding:50px 10%;
+  background:rgba(0,0,0,.5);
+  border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;
+}
+.footer-col h4{font-family:'Orbitron';color:var(--accent)}
+.footer-col a{color:#aaa;text-decoration:none}
+</style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo">BCH MASTER</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#rentals">Rentals</a>
-            <a href="<?= scriptURL ?>?action=report" style="color: var(--accent);">Tenant Portal</a>
-            <a href="<?= scriptURL ?>?action=worker">Staff</a>
-            <a href="<?= scriptURL ?>?action=admin">Admin</a>
-        </div>
-    </nav>
+<nav>
+  <div class="logo">BCH MASTER</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="#rentals">Rentals</a>
+    <a href="report.html">Tenant Portal</a>
+    <a href="worker.html">Staff</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</nav>
 
-    <section class="hero" id="home">
-        <h1>First-Class Living</h1>
-        <p>Experiencia de renta nivel Premier en El Paso. Tecnología, confort y mantenimiento proactivo en un solo lugar.</p>
-    </section>
+<section class="hero">
+  <h1>First-Class Living</h1>
+  <p>Experiencia de renta nivel Premier en El Paso.</p>
+</section>
 
-    <section class="features">
-        <div class="feat-card">
-            <h3>24/7 SUPPORT</h3>
-            <p>Nuestro portal de mantenimiento inteligente responde en tiempo récord. Tu tranquilidad es prioridad.</p>
-        </div>
-        <div class="feat-card">
-            <h3>PREMIUM CARE</h3>
-            <p>Programas de mantenimiento preventivo para aire y calefacción. Confort garantizado todo el año.</p>
-        </div>
-        <div class="feat-card">
-            <h3>EASY APPLY</h3>
-            <p>Sube tus documentos y califica digitalmente. Proceso de aprobación rápido y sin complicaciones.</p>
-        </div>
-    </section>
+<section class="features">
+  <div class="feat-card"><h3>24/7 SUPPORT</h3><p>Soporte inmediato.</p></div>
+  <div class="feat-card"><h3>PREMIUM CARE</h3><p>Mantenimiento preventivo.</p></div>
+  <div class="feat-card"><h3>EASY APPLY</h3><p>Aplicación digital.</p></div>
+</section>
 
-    <h2 class="section-title" id="rentals">Featured Properties</h2>
-    
-    <div id="db-loader">CONNECTING TO DATABASE...</div>
-    <div class="property-grid" id="grid-propietaria">
-        </div>
+<h2 class="section-title" id="rentals">Featured Properties</h2>
 
-    <footer>
-        <div class="footer-col">
-            <h4>BORDER CITY HOMES</h4>
-            <p>Modern Living Management.</p>
-        </div>
-        <div class="footer-col">
-            <h4>PORTALS</h4>
-            <ul>
-                <li><a href="<?= scriptURL ?>?action=report">Tenant Portal</a></li>
-                <li><a href="<?= scriptURL ?>?action=worker">Worker Dashboard</a></li>
-                <li><a href="<?= scriptURL ?>?action=admin">Master Admin</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>CONTACT</h4>
-            <p>El Paso, TX<br>support@bordercityhomes.com</p>
-        </div>
-    </footer>
+<div class="property-grid" id="grid-propietaria"></div>
 
-    <script>
-        // Al cargar la página, pedimos las propiedades al Code.gs
-        window.onload = function() {
-            google.script.run.withSuccessHandler(renderizarTabla).getPropiedades();
-        };
+<footer>
+  <div class="footer-col">
+    <h4>BORDER CITY HOMES</h4>
+    <p>Modern Living Management</p>
+  </div>
+  <div class="footer-col">
+    <h4>PORTALS</h4>
+    <ul>
+      <li><a href="report.html">Tenant Portal</a></li>
+      <li><a href="worker.html">Worker</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </div>
+</footer>
 
-        function renderizarTabla(propiedades) {
-            document.getElementById('db-loader').style.display = 'none';
-            const grid = document.getElementById('grid-propietaria');
-            
-            // Usamos una foto de respaldo por si no tienes la columna "Foto_Principal"
-            // Pero si la tienes, cambia 'https://images.unsplash...' por casa.foto_principal
-            grid.innerHTML = propiedades.map(casa => `
-                <div class="property-card">
-                    <div class="prop-img" 
-                         style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500');"
-                         onclick="window.open('${casa.foto_url}', '_blank')">
-                        <div class="badge" style="background:${casa.estatus === 'Rented' ? '#ff4444' : 'var(--primary)'}">
-                            ${casa.estatus.toUpperCase()}
-                        </div>
-                    </div>
-                    <div class="prop-info">
-                        <h3 class="prop-address" onclick="window.open('${casa.foto_url}', '_blank')">${casa.direccion}</h3>
-                        <p class="prop-price">$${casa.precio} / mo</p>
-                        <div class="prop-details">
-                            <span>🛏️ ${casa.habitaciones} Beds</span>
-                            <span>🛁 ${casa.banios} Baths</span>
-                            <span>🆔 ${casa.id}</span>
-                        </div>
-                        <button class="btn-apply" 
-                                onclick="window.top.location.href='<?= scriptURL ?>?action=apply&house=${encodeURIComponent(casa.direccion)}'">
-                                ${casa.estatus === 'Rented' ? 'VIEW DETAILS' : 'APPLY TO RENT'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-    </script>
+<script>
+const properties = [
+  {
+    direccion: "123 Mesa St",
+    precio: 1450,
+    habitaciones: 3,
+    banios: 2,
+    estatus: "Available"
+  },
+  {
+    direccion: "456 Sunland Park",
+    precio: 1650,
+    habitaciones: 4,
+    banios: 2,
+    estatus: "Rented"
+  }
+];
+
+document.getElementById("grid-propietaria").innerHTML =
+  properties.map(c => `
+    <div class="property-card">
+      <div class="prop-img"
+           style="background-image:url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500')">
+        <div class="badge"
+             style="background:${c.estatus==='Rented'?'#ff4444':'var(--primary)'}">
+          ${c.estatus}
+        </div>
+      </div>
+      <div class="prop-info">
+        <h3>${c.direccion}</h3>
+        <p class="prop-price">$${c.precio} / mo</p>
+        <div class="prop-details">
+          <span>🛏️ ${c.habitaciones}</span>
+          <span>🛁 ${c.banios}</span>
+        </div>
+        <button class="btn-apply"
+          onclick="location.href='apply.html?house='+encodeURIComponent('${c.direccion}')">
+          APPLY TO RENT
+        </button>
+      </div>
+    </div>
+  `).join("");
+</script>
+
 </body>
 </html>
