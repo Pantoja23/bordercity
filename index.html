@@ -2,266 +2,305 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Border City Homes | Intelligence Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Border City Homes | Luxury Rentals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #00d2ff;
-            --gold: #ffcc33; /* Oro más brillante para mejor contraste */
-            --glass: rgba(10, 15, 20, 0.85); /* Fondo más oscuro para que se lea mejor en el sol */
-            --dark-bg: #05070a;
+            --primary: #00d2ff;
+            --accent: #ffcc33;
+            --bg: #030508;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(0, 210, 255, 0.3);
         }
 
         body {
             margin: 0;
             font-family: 'Rajdhani', sans-serif;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            background-color: var(--bg);
             color: white;
-            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #0a111a 0%, #030508 100%);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 5%;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Orbitron';
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
-        }
-
-        /* Overlay para asegurar legibilidad */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: -1;
-        }
-
-        .container {
-            width: 92%;
-            max-width: 450px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(0, 210, 255, 0.3); /* Borde más marcado */
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
             text-align: center;
+            padding: 0 10%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--bg) 100%), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
         }
 
-        .logo-font {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(0,210,255,0.5);
-        }
-
-        #tenant-info {
-            background: rgba(255, 204, 51, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 1.1rem; /* Más grande */
-            font-weight: 500;
-            border-left: 5px solid var(--gold);
-            text-align: left;
-            color: #fff;
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-            text-align: left;
-        }
-
-        /* AJUSTE PARA CELULAR: Inputs más grandes y legibles */
-        input, select, textarea {
-            width: 100%;
-            background: #1a1d21; /* Fondo sólido oscuro para evitar el "borroso" */
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 16px; /* Más espacio para dedos grandes */
-            border-radius: 12px;
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem; /* Tamaño ideal para no forzar la vista */
-            font-weight: 600;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        input:focus { 
-            border-color: var(--accent); 
-            background: #202429;
-        }
-
-        /* Placeholder con más contraste */
-        ::placeholder { color: #bbb; opacity: 1; }
-
-        .btn-glow {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #00d2ff, #004e92);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: bold;
+        .hero h1 {
+            font-family: 'Orbitron';
+            font-size: 3rem;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,210,255,0.4);
         }
 
-        .contact-tenant {
-            margin-top: 25px;
-            font-size: 1.1rem;
-            color: #eee;
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
         }
 
-        .contact-tenant a { 
-            color: var(--gold); 
-            text-decoration: none; 
-            font-weight: bold; 
-            display: block; 
-            font-size: 1.4rem; 
-            margin-top: 5px;
+        /* --- BORDER CITY ADVANTAGE (EL SERVICIO) --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 50px 10%;
         }
+
+        .feat-card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .feat-card:hover {
+            background: rgba(0, 210, 255, 0.1);
+            transform: translateY(-10px);
+        }
+
+        .feat-card h3 { color: var(--primary); font-family: 'Orbitron'; margin-bottom: 15px; }
+
+        /* --- PROPERTY GRID (MOSAICOS) --- */
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron';
+            font-size: 2rem;
+            margin-top: 80px;
+            color: var(--accent);
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px 10%;
+        }
+
+        .property-card {
+            background: var(--glass);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .property-card:hover {
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .prop-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: black;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 10;
+        }
+
+        .prop-info { padding: 20px; }
+        .prop-price { font-size: 1.5rem; color: var(--primary); font-weight: bold; margin: 5px 0; }
+        .prop-details { display: flex; gap: 15px; color: #888; font-size: 0.9rem; }
+
+        /* Estilo para que la dirección parezca link */
+        .prop-address { cursor: pointer; transition: 0.2s; }
+        .prop-address:hover { color: var(--primary); }
+
+        .btn-apply {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron';
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-apply:hover {
+            background: var(--primary);
+            color: black;
+        }
+
+        /* --- FOOTER / QUICK ACCESS --- */
+        footer {
+            margin-top: 100px;
+            padding: 50px 10%;
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-col h4 { font-family: 'Orbitron'; color: var(--accent); }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li { margin: 10px 0; }
+        .footer-col a { color: #aaa; text-decoration: none; }
+
+        /* Loader para cuando descarga los datos */
+        #db-loader { text-align: center; color: var(--primary); font-family: 'Orbitron'; padding: 20px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-font">Border City</div>
-    <div style="font-family: 'Orbitron'; font-size: 1rem; color: white; letter-spacing: 5px;">HOMES</div>
+    <nav>
+        <div class="logo">BCH MASTER</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#rentals">Rentals</a>
+            <a href="<?= scriptURL ?>?action=report" style="color: var(--accent);">Tenant Portal</a>
+            <a href="<?= scriptURL ?>?action=worker">Staff</a>
+            <a href="<?= scriptURL ?>?action=admin">Admin</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>First-Class Living</h1>
+        <p>Experiencia de renta nivel Premier en El Paso. Tecnología, confort y mantenimiento proactivo en un solo lugar.</p>
+    </section>
+
+    <section class="features">
+        <div class="feat-card">
+            <h3>24/7 SUPPORT</h3>
+            <p>Nuestro portal de mantenimiento inteligente responde en tiempo récord. Tu tranquilidad es prioridad.</p>
+        </div>
+        <div class="feat-card">
+            <h3>PREMIUM CARE</h3>
+            <p>Programas de mantenimiento preventivo para aire y calefacción. Confort garantizado todo el año.</p>
+        </div>
+        <div class="feat-card">
+            <h3>EASY APPLY</h3>
+            <p>Sube tus documentos y califica digitalmente. Proceso de aprobación rápido y sin complicaciones.</p>
+        </div>
+    </section>
+
+    <h2 class="section-title" id="rentals">Featured Properties</h2>
     
-    <div id="tenant-info">
-        <strong id="lbl-info-head" style="color: var(--gold);">💡 Info Inquilino:</strong><br>
-        <span id="json-text">...</span>
-    </div>
-
-    <form id="orderForm">
-        <div class="input-group">
-            <input type="text" name="Cliente" id="f-name" placeholder="NOMBRE COMPLETO" style="text-transform: capitalize;" required>
+    <div id="db-loader">CONNECTING TO DATABASE...</div>
+    <div class="property-grid" id="grid-propietaria">
         </div>
 
-        <div class="input-group">
-            <input type="tel" id="telMask" name="Telefono" placeholder="TELÉFONO" maxlength="14" required>
+    <footer>
+        <div class="footer-col">
+            <h4>BORDER CITY HOMES</h4>
+            <p>Modern Living Management.</p>
         </div>
-
-        <div class="input-group">
-            <input type="email" id="emailInput" name="Email" placeholder="CORREO ELECTRÓNICO" required>
+        <div class="footer-col">
+            <h4>PORTALS</h4>
+            <ul>
+                <li><a href="<?= scriptURL ?>?action=report">Tenant Portal</a></li>
+                <li><a href="<?= scriptURL ?>?action=worker">Worker Dashboard</a></li>
+                <li><a href="<?= scriptURL ?>?action=admin">Master Admin</a></li>
+            </ul>
         </div>
-
-        <div class="input-group">
-            <input type="text" name="Direccion" id="f-address" placeholder="PROPIEDAD / DIRECCIÓN" required>
+        <div class="footer-col">
+            <h4>CONTACT</h4>
+            <p>El Paso, TX<br>support@bordercityhomes.com</p>
         </div>
+    </footer>
 
-        <div class="input-group">
-            <select name="Servicio" id="f-service" required>
-                <option value="" disabled selected id="opt-service">TIPO DE SERVICIO</option>
-                <option value="HVAC">AIR CONDITIONING / HEATING</option>
-                <option value="Plumbing">PLUMBING</option>
-                <option value="Electric">ELECTRICAL</option>
-                <option value="Appliance">APPLIANCE REPAIR</option>
-            </select>
-        </div>
+    <script>
+        // Al cargar la página, pedimos las propiedades al Code.gs
+        window.onload = function() {
+            google.script.run.withSuccessHandler(renderizarTabla).getPropiedades();
+        };
 
-        <textarea name="Mensaje" id="f-msg" rows="3" placeholder="DESCRIPCIÓN DEL REPORTE"></textarea>
-        
-        <button type="submit" id="btn-submit" class="btn-glow">DEPLOY WORK ORDER</button>
-    </form>
-
-    <div class="contact-tenant">
-        <span id="lbl-emergency">Emergencias 24/7:</span>
-        <a href="tel:9152828490">(915) 282-8490</a>
-    </div>
-</div>
-
-<script>
-    // --- LÓGICA BILINGÜE ---
-    const i18n = {
-        es: {
-            infoHead: "💡 Info Inquilino:",
-            welcome: "Bienvenido al portal de mantenimiento de Border City.",
-            name: "NOMBRE COMPLETO",
-            phone: "TELÉFONO (10 DÍGITOS)",
-            email: "CORREO ELECTRÓNICO",
-            address: "PROPIEDAD / DIRECCIÓN",
-            service: "TIPO DE SERVICIO",
-            msg: "DESCRIPCIÓN DEL REPORTE",
-            btn: "ENVIAR ORDEN DE TRABAJO",
-            btnWait: "SISTEMA ENVIANDO...",
-            btnOk: "ENVÍO EXITOSO",
-            emergency: "Emergencias 24/7:",
-            errorMail: "Ingrese un correo válido (debe incluir @ y .com)"
-        },
-        en: {
-            infoHead: "💡 Tenant Info:",
-            welcome: "Welcome to the Border City maintenance portal.",
-            name: "FULL NAME",
-            phone: "PHONE NUMBER (10 DIGITS)",
-            email: "EMAIL ADDRESS",
-            address: "PROPERTY / ADDRESS",
-            service: "SERVICE TYPE",
-            msg: "REPORT DESCRIPTION",
-            btn: "DEPLOY WORK ORDER",
-            btnWait: "SYSTEM DEPLOYING...",
-            btnOk: "SUCCESSFUL DEPLOY",
-            emergency: "24/7 Emergencies:",
-            errorMail: "Enter a valid email (must include @ and .com)"
+        function renderizarTabla(propiedades) {
+            document.getElementById('db-loader').style.display = 'none';
+            const grid = document.getElementById('grid-propietaria');
+            
+            // Usamos una foto de respaldo por si no tienes la columna "Foto_Principal"
+            // Pero si la tienes, cambia 'https://images.unsplash...' por casa.foto_principal
+            grid.innerHTML = propiedades.map(casa => `
+                <div class="property-card">
+                    <div class="prop-img" 
+                         style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500');"
+                         onclick="window.open('${casa.foto_url}', '_blank')">
+                        <div class="badge" style="background:${casa.estatus === 'Rented' ? '#ff4444' : 'var(--primary)'}">
+                            ${casa.estatus.toUpperCase()}
+                        </div>
+                    </div>
+                    <div class="prop-info">
+                        <h3 class="prop-address" onclick="window.open('${casa.foto_url}', '_blank')">${casa.direccion}</h3>
+                        <p class="prop-price">$${casa.precio} / mo</p>
+                        <div class="prop-details">
+                            <span>🛏️ ${casa.habitaciones} Beds</span>
+                            <span>🛁 ${casa.banios} Baths</span>
+                            <span>🆔 ${casa.id}</span>
+                        </div>
+                        <button class="btn-apply" 
+                                onclick="window.top.location.href='<?= scriptURL ?>?action=apply&house=${encodeURIComponent(casa.direccion)}'">
+                                ${casa.estatus === 'Rented' ? 'VIEW DETAILS' : 'APPLY TO RENT'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
-    };
-
-    // Detectar idioma del teléfono
-    const userLang = navigator.language || navigator.userLanguage;
-    const lang = userLang.startsWith('es') ? 'es' : 'en';
-    const t = i18n[lang];
-
-    // Aplicar traducción
-    document.getElementById('lbl-info-head').innerText = t.infoHead;
-    document.getElementById('json-text').innerText = t.welcome;
-    document.getElementById('f-name').placeholder = t.name;
-    document.getElementById('telMask').placeholder = t.phone;
-    document.getElementById('emailInput').placeholder = t.email;
-    document.getElementById('f-address').placeholder = t.address;
-    document.getElementById('opt-service').innerText = t.service;
-    document.getElementById('f-msg').placeholder = t.msg;
-    document.getElementById('btn-submit').innerText = t.btn;
-    document.getElementById('lbl-emergency').innerText = t.emergency;
-
-    // --- MÁSCARA DE TELÉFONO ---
-    const telInput = document.getElementById('telMask');
-    telInput.addEventListener('input', (e) => {
-        let value = e.target.value.replace(/\D/g, ''); 
-        let x = value.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-
-    // --- ENVÍO DE DATOS ---
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btn-submit');
-        btn.innerText = t.btnWait;
-        btn.disabled = true;
-
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzwoBDAAwe5gHiRwG94c8RVY_8QKzm2ieeNreTSCfI8i6UcQvGcKwG-iyKrRJdzIVJK/exec';
-
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: new FormData(this)
-        })
-    .then(() => {
-        // Redirigir a la página de confirmación
-        // Aquí podrías añadir el ID del reporte si tu script de Apps Script lo retorna
-        window.location.href = 'confirmation.html'; 
-        // Si Apps Script te devuelve un ID, podrías hacer:
-        // window.location.href = 'confirmation.html?id=' + ID_DEL_REPORTE;
-    })
-    .catch(error => {
-        console.error('Error!', error.message);
-        alert("System Error: No se pudo conectar con el servidor.");
-        btn.disabled = false;
-        btn.innerText = "RETRY DEPLOY";
-    });
-    });
-</script>
-
+    </script>
 </body>
 </html>
