@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #00d2ff; --accent: #ffcc33; --bg: #030508; }
+    body { 
+      background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; 
+      display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
+    }
+    .app-container {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      padding: 40px; border-radius: 30px;
+      width: 90%; max-width: 500px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+    h2 { font-family: 'Orbitron'; color: var(--primary); text-align: center; letter-spacing: 2px; }
+    .input-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-size: 0.8rem; color: var(--primary); font-family: 'Orbitron'; }
+    input[type="text"], input[type="email"], select {
+      width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #333;
+      border-radius: 10px; color: white; font-family: 'Rajdhani'; outline: none; box-sizing: border-box;
+    }
+    input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
+    
+    /* Estilo para los inputs de archivo */
+    .file-input-wrapper {
+      position: relative; overflow: hidden; display: inline-block; width: 100%;
+      margin-top: 5px;
+    }
+    .btn-file {
+      border: 1px dashed var(--primary); color: var(--primary); background: rgba(0,210,255,0.05);
+      padding: 15px; border-radius: 10px; display: block; text-align: center; cursor: pointer;
+    }
+    input[type="file"] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
+
+.file-input-wrapper:hover .btn-file {
+  background: rgba(0, 210, 255, 0.15);
+  border-style: solid;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+.btn-file {
+  transition: all 0.3s ease;
+  pointer-events: none; /* Esto hace que el clic pase directo al wrapper */
+}
+      
+    .btn-main {
+      width: 100%; padding: 15px; background: var(--primary); border: none; border-radius: 10px;
+      color: black; font-family: 'Orbitron'; font-weight: bold; cursor: pointer;
+      transition: 0.3s; margin-top: 20px; text-transform: uppercase;
+    }
+    .btn-main:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+    .btn-main:disabled { background: #444; color: #888; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <h2>RENTAL APPLICATION</h2>
+    <form id="rentalForm">
+      <div class="input-group">
+        <label>FULL NAME</label>
+        <input type="text" name="nombre" placeholder="John Doe" required>
+      </div>
+      <div class="input-group">
+        <label>EMAIL ADDRESS</label>
+        <input type="email" name="email" placeholder="john@example.com" required>
+      </div>
+      <div class="input-group">
+        <label>PROPERTY</label>
+        <input type="text" name="propiedad" id="propName" readonly value="11570 Caballo Lake">
+      </div>
+      
+     <div class="input-group">
+  <label>OFFICIAL ID (Photo/PDF)</label>
+  <div class="file-input-wrapper" onclick="document.getElementById('fileId').click()">
+    <span class="btn-file" id="lab1">Click to upload ID</span>
+    <input type="file" id="fileId" name="fileId" accept="image/*,application/pdf" 
+           onchange="document.getElementById('lab1').innerText=this.files[0].name; document.getElementById('lab1').style.borderColor='var(--accent)'" 
+           style="display:none;">
+  </div>
+</div>
+
+<div class="input-group">
+  <label>PROOF OF INCOME (Check Stub/Bank Stmt)</label>
+  <div class="file-input-wrapper" onclick="document.getElementById('fileIncome').click()">
+    <span class="btn-file" id="lab2">Click to upload documents</span>
+    <input type="file" id="fileIncome" name="fileIncome" accept="image/*,application/pdf" 
+           onchange="document.getElementById('lab2').innerText=this.files[0].name; document.getElementById('lab2').style.borderColor='var(--accent)'" 
+           style="display:none;">
+  </div>
+</div>
+
+      <button type="button" onclick="handleUpload()" id="btnSubmit" class="btn-main">DEPLOY APPLICATION</button>
+    </form>
+  </div>
+
+  <script>
+    async function handleUpload() {
+  const form = document.getElementById('rentalForm');
+  const btn = document.getElementById('btnSubmit');
+  
+  const file1 = document.getElementById('fileId').files[0];
+  const file2 = document.getElementById('fileIncome').files[0];
+
+  if (!form.nombre.value || !file1 || !file2) {
+    alert("Please fill all fields and upload documents.");
+    return;
+  }
+  
+  // VALIDACIÓN DE TAMAÑO (Evita el System Error)
+  if (file1.size > 1024 * 1024 * 5 || file2.size > 1024 * 1024 * 5) {
+    alert("File too large. Max 5MB per file.");
+    return;
+  }
+
+  btn.innerText = "UPLOADING TO SECURE CLOUD...";
+  btn.disabled = true;
+
+  const getBase64 = (file) => new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.readAsDataURL(file);
+  });
+
+  try {
+    const payload = {
+      nombre: form.nombre.value,
+      email: form.email.value,
+      propiedad: document.getElementById('propName').value,
+      fileIdData: await getBase64(file1),
+      fileIdName: file1.name,
+      fileIncomeData: await getBase64(file2),
+      fileIncomeName: file2.name
+    };
+
+    // USAR google.script.run para llamar a la función del Code.gs
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (res.success) {
+          window.top.location.href = "<?= scriptURL ?>?action=confirm";
+        } else {
+          alert("Server Error: " + res.error);
+          btn.disabled = false;
+          btn.innerText = "RETRY DEPLOY";
+        }
+      })
+      .withFailureHandler(function(err) {
+        alert("Critical Error: " + err);
+        btn.disabled = false;
+      })
+      .processApplication(payload); // <--- DEBE LLAMARSE IGUAL QUE EN EL GS
+
+  } catch (e) {
+    alert("Connection Error: " + e);
+    btn.disabled = false;
+  }
+}
+  </script>
+</body>
+</html>
