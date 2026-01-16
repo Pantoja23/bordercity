@@ -3,192 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Border City Homes | Luxury Rentals</title>
+<title>Aldo Properties, LLC. | Premier Rentals</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --primary:#00d2ff;
-  --accent:#ffcc33;
-  --bg:#030508;
-  --glass:rgba(255,255,255,.05);
-  --border:rgba(0,210,255,.3);
+  --primary: #00d2ff;
+  --accent: #ffcc33;
+  --bg: #030508;
+  --glass: rgba(255, 255, 255, 0.05);
+  --border: rgba(0, 210, 255, 0.3);
+  --neon-glow: 0 0 15px rgba(0, 210, 255, 0.4);
 }
-body{
-  margin:0;font-family:'Rajdhani',sans-serif;
-  background:radial-gradient(circle,#0a111a,#030508);
-  color:#fff;overflow-x:hidden;
-}
-nav{
-  padding:20px 5%;display:flex;justify-content:space-between;
-  align-items:center;position:sticky;top:0;z-index:99;
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
-}
-.logo{
-  font-family:'Orbitron';font-size:1.5rem;letter-spacing:3px;
-  color:var(--primary);
-}
-.nav-links a{
-  color:#fff;text-decoration:none;margin-left:20px;
-  font-size:.9rem;text-transform:uppercase;
-}
-.nav-links a:hover{color:var(--primary)}
 
-.hero{
-  height:60vh;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;
-  padding:0 10%;
-  background:
-    linear-gradient(to bottom,rgba(0,0,0,.3),var(--bg)),
+body {
+  margin: 0;
+  font-family: 'Rajdhani', sans-serif;
+  background: radial-gradient(circle at center, #0a111a, #030508);
+  color: #fff;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* --- NAVEGACIÓN PREMIUM --- */
+nav {
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--neon-glow);
+}
+
+.logo {
+  font-family: 'Orbitron';
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+  text-shadow: 0 0 8px var(--primary);
+}
+
+/* --- HERO SECTION DE ALTO IMPACTO --- */
+.hero {
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 10%;
+  background: 
+    linear-gradient(to bottom, rgba(3, 5, 8, 0.2), var(--bg)),
     url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');
-  background-size:cover;background-position:center;
-}
-.hero h1{
-  font-family:'Orbitron';font-size:3rem;text-transform:uppercase;
-}
-.hero p{color:#ccc;max-width:600px;font-size:1.2rem}
-
-.features{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;padding:50px 10%;
-}
-.feat-card{
-  background:var(--glass);padding:30px;border-radius:20px;
-  border:1px solid var(--border);text-align:center;
-}
-.feat-card h3{font-family:'Orbitron';color:var(--primary)}
-
-.section-title{
-  text-align:center;font-family:'Orbitron';
-  font-size:2rem;color:var(--accent);margin-top:80px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border);
 }
 
-.property-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:30px;padding:40px 10%;
+.hero h1 {
+  font-family: 'Orbitron';
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #fff;
 }
-.property-card{
-  background:var(--glass);border-radius:25px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-}
-.prop-img{
-  height:220px;background-size:cover;background-position:center;
-}
-.badge{
-  position:absolute;top:15px;right:15px;
-  background:var(--primary);color:#000;
-  padding:5px 15px;border-radius:50px;font-size:.8rem;
-}
-.prop-info{padding:20px}
-.prop-price{font-size:1.4rem;color:var(--primary);font-weight:bold}
-.prop-details{display:flex;gap:15px;color:#aaa;font-size:.9rem}
 
-.btn-apply{
-  width:100%;margin-top:15px;padding:12px;
-  border:1px solid var(--primary);background:transparent;
-  color:var(--primary);border-radius:10px;
-  font-family:'Orbitron';cursor:pointer;
+.hero p {
+  color: #ccc;
+  max-width: 700px;
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
-.btn-apply:hover{background:var(--primary);color:#000}
 
-footer{
-  margin-top:100px;padding:50px 10%;
-  background:rgba(0,0,0,.5);
-  border-top:1px solid var(--border);
-  display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;
+/* --- FEATURES / VENTAJAS --- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 80px 10%;
 }
-.footer-col h4{font-family:'Orbitron';color:var(--accent)}
-.footer-col a{color:#aaa;text-decoration:none}
+
+.feat-card {
+  background: var(--glass);
+  padding: 40px;
+  border-radius: 25px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: 0.4s ease;
+}
+
+.feat-card:hover {
+  transform: translateY(-10px);
+  background: rgba(0, 210, 255, 0.1);
+  border-color: var(--primary);
+}
+
+.feat-card h3 {
+  font-family: 'Orbitron';
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+/* --- GRILLA DE PROPIEDADES --- */
+.section-title {
+  text-align: center;
+  font-family: 'Orbitron';
+  font-size: 2.2rem;
+  color: var(--accent);
+  margin-top: 60px;
+  letter-spacing: 3px;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+  padding: 60px 10%;
+}
+
+.property-card {
+  background: var(--glass);
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: 0.4s;
+}
+
+.property-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--neon-glow);
+}
+
+.prop-img {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  z-index: 10;
+  font-family: 'Orbitron';
+  text-transform: uppercase;
+}
+
+.prop-info { padding: 25px; }
+
+.prop-address-link {
+  text-decoration: none;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.prop-address-link:hover {
+  color: var(--primary);
+}
+
+.prop-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.prop-price {
+  font-size: 1.6rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.prop-details {
+  display: flex;
+  gap: 20px;
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.btn-apply {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  border-radius: 12px;
+  font-family: 'Orbitron';
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 1px;
+}
+
+.btn-apply:hover {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 20px var(--primary);
+}
+
+/* --- FOOTER MODERNO --- */
+footer {
+  margin-top: 100px;
+  padding: 60px 10%;
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.footer-col h4 {
+  font-family: 'Orbitron';
+  color: var(--accent);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.footer-col ul { list-style: none; padding: 0; }
+.footer-col li { margin-bottom: 12px; }
+.footer-col a {
+  color: #aaa;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer-col a:hover { color: var(--primary); }
+
+#loader {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 100px;
+  font-family: 'Orbitron';
+  color: var(--primary);
+}
+
 </style>
 </head>
 
 <body>
 
 <nav>
-  <div class="logo">BCH MASTER</div>
+  <div class="logo">ALDO PROPERTIES</div>
   <div class="nav-links">
-    <a href="index.html">Home</a>
+    <a onclick="navegar('home')">Home</a>
     <a href="#rentals">Rentals</a>
-    <a href="report.html">Tenant Portal</a>
-    <a href="worker.html">Staff</a>
-    <a href="admin.html">Admin</a>
+    <a onclick="navegar('report')">Tenant Portal</a>
+    <a onclick="navegar('worker')">Staff</a>
+    <a onclick="navegar('admin')">Admin</a>
   </div>
 </nav>
 
 <section class="hero">
-  <h1>First-Class Living</h1>
-  <p>Experiencia de renta nivel Premier en El Paso.</p>
+  <h1>ALDO PROPERTIES, LLC.</h1>
+  <p>First-Class Living & Premier Rentals in El Paso, Texas.</p>
 </section>
 
 <section class="features">
-  <div class="feat-card"><h3>24/7 SUPPORT</h3><p>Soporte inmediato.</p></div>
-  <div class="feat-card"><h3>PREMIUM CARE</h3><p>Mantenimiento preventivo.</p></div>
-  <div class="feat-card"><h3>EASY APPLY</h3><p>Aplicación digital.</p></div>
+  <div class="feat-card">
+    <h3>24/7 SUPPORT</h3>
+    <p>Atención inmediata a través de nuestro portal digital de mantenimiento.</p>
+  </div>
+  <div class="feat-card">
+    <h3>PREMIUM CARE</h3>
+    <p>Programas preventivos estacionales para asegurar su máximo confort.</p>
+  </div>
+  <div class="feat-card">
+    <h3>SMART APPLY</h3>
+    <p>Proceso de aplicación 100% digital, rápido y transparente.</p>
+  </div>
 </section>
 
-<h2 class="section-title" id="rentals">Featured Properties</h2>
+<h2 class="section-title" id="rentals">Available Properties</h2>
 
-<div class="property-grid" id="grid-propietaria"></div>
+<div class="property-grid" id="grid-propietaria">
+  <div id="loader">INITIALIZING ALDO_PROPERTIES_DATABASE...</div>
+</div>
 
 <footer>
   <div class="footer-col">
-    <h4>BORDER CITY HOMES</h4>
-    <p>Modern Living Management</p>
+    <h4>ALDO PROPERTIES, LLC.</h4>
+    <p>Modern Living Management & Luxury Real Estate Services.</p>
   </div>
   <div class="footer-col">
-    <h4>PORTALS</h4>
+    <h4>QUICK LINKS</h4>
     <ul>
-      <li><a href="report.html">Tenant Portal</a></li>
-      <li><a href="worker.html">Worker</a></li>
-      <li><a href="admin.html">Admin</a></li>
+      <li><a onclick="navegar('report')">Tenant Portal</a></li>
+      <li><a onclick="navegar('worker')">Staff Dashboard</a></li>
+      <li><a onclick="navegar('admin')">Master Admin</a></li>
     </ul>
   </div>
 </footer>
 
 <script>
-const properties = [
-  {
-    direccion: "123 Mesa St",
-    precio: 1450,
-    habitaciones: 3,
-    banios: 2,
-    estatus: "Available"
-  },
-  {
-    direccion: "456 Sunland Park",
-    precio: 1650,
-    habitaciones: 4,
-    banios: 2,
-    estatus: "Rented"
-  }
-];
+// --- CONFIGURACIÓN DE NAVEGACIÓN MANUAL ---
+const BASE_URL = "https://script.google.com/macros/s/AKfycbw_rkColjOFspNqYghxbk9_Fxtx1GKA6CIkjToz5Qyi6YudXVXvjJOWmzCgqbIB4j4Y9w/exec";
+function navegar(accion) {
+  window.location.href = "?action=" + accion;
+}
 
-document.getElementById("grid-propietaria").innerHTML =
-  properties.map(c => `
+window.onload = () => {
+  console.log("Iniciando conexión con Aldo Properties DB...");
+
+  if (typeof google === "undefined" || !google.script) {
+    document.getElementById("grid-propietaria").innerHTML =
+      "<p id='loader'>ERROR: NO SE ESTÁ EJECUTANDO EN GOOGLE APPS SCRIPT</p>";
+    return;
+  }
+
+  google.script.run
+    .withSuccessHandler(dibujarCasas)
+    .withFailureHandler(err => {
+      console.error("Error en servidor:", err);
+      document.getElementById("grid-propietaria").innerHTML =
+        `<p id='loader'>ERROR DB: ${err.message || err}</p>`;
+    })
+    .getPropiedades();
+};
+
+function dibujarCasas(properties) {
+  const container = document.getElementById("grid-propietaria");
+  console.log("Datos recibidos:", properties);
+
+  if (!properties || properties.length === 0) {
+    container.innerHTML = "<p id='loader'>BASE DE DATOS VACÍA.</p>";
+    return;
+  }
+  
+  // FILTRO: Respetando tus estatus "For Rent" y "Cooming Soon" (con doble O)
+  const disponibles = properties.filter(c => 
+    c.estatus === "For Rent" || 
+    c.estatus === "Coming Soon" || 
+    c.estatus === "Cooming Soon"
+  );
+
+  if (disponibles.length === 0) {
+    container.innerHTML = "<p id='loader'>NO HAY CASAS DISPONIBLES EN ESTE MOMENTO.</p>";
+    return;
+  }
+
+  container.innerHTML = disponibles.map(c => {
+    // CORRECCIÓN DE LA URL DE MAPS (Sin llaves rotas)
+    const queryMaps = encodeURIComponent(c.direccion + ", El Paso, TX");
+    const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + queryMaps;
+    
+    // Imagen de respaldo si el link de Drive no es directo
+    const imgPlaceholder = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600";
+
+    return `
     <div class="property-card">
       <div class="prop-img"
-           style="background-image:url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500')">
-        <div class="badge"
-             style="background:${c.estatus==='Rented'?'#ff4444':'var(--primary)'}">
+           style="background-image:url('${imgPlaceholder}')"
+           onclick="window.open('${c.foto}', '_blank')">
+        <div class="badge" 
+             style="background:${c.estatus === 'For Rent' ? 'var(--primary)' : 'var(--accent)'}; color: #000;">
           ${c.estatus}
         </div>
       </div>
       <div class="prop-info">
-        <h3>${c.direccion}</h3>
-        <p class="prop-price">$${c.precio} / mo</p>
+        <a href="${mapsLink}" target="_blank" style="text-decoration:none; color:inherit;">
+          <h3 style="cursor:pointer; margin: 0 0 10px 0;">📍 ${c.direccion}</h3>
+        </a>
+        <p class="prop-price">$${Number(c.precio).toLocaleString()} / mo</p>
         <div class="prop-details">
-          <span>🛏️ ${c.habitaciones}</span>
-          <span>🛁 ${c.banios}</span>
+          <span>🛏️ ${c.habitaciones} Beds</span>
+          <span>🛁 ${c.banios} Baths</span>
         </div>
         <button class="btn-apply"
-          onclick="location.href='apply.html?house='+encodeURIComponent('${c.direccion}')">
+          onclick="navegar('apply&house=' + encodeURIComponent('${c.direccion}'))">
           APPLY TO RENT
         </button>
       </div>
     </div>
-  `).join("");
+  `}).join("");
+}
 </script>
-
 </body>
 </html>
