@@ -1,163 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Apply | Aldo Properties</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <style>
-    :root { --primary: #00d2ff; --accent: #ffcc33; --bg: #030508; }
-    body { 
-      background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; 
-      display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
+    :root { 
+      --primary: #00d2ff; 
+      --accent: #ffcc33; 
+      --bg: #030508; 
+      --input-bg: rgba(255, 255, 255, 0.05);
     }
-    .app-container {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(0, 210, 255, 0.3);
-      padding: 40px; border-radius: 30px;
-      width: 90%; max-width: 500px;
-      box-shadow: 0 0 40px rgba(0,0,0,0.5);
-    }
-    h2 { font-family: 'Orbitron'; color: var(--primary); text-align: center; letter-spacing: 2px; }
-    .input-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-size: 0.8rem; color: var(--primary); font-family: 'Orbitron'; }
-    input[type="text"], input[type="email"], select {
-      width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #333;
-      border-radius: 10px; color: white; font-family: 'Rajdhani'; outline: none; box-sizing: border-box;
-    }
-    input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
-    
-    /* Estilo para los inputs de archivo */
-    .file-input-wrapper {
-      position: relative; overflow: hidden; display: inline-block; width: 100%;
-      margin-top: 5px;
-    }
-    .btn-file {
-      border: 1px dashed var(--primary); color: var(--primary); background: rgba(0,210,255,0.05);
-      padding: 15px; border-radius: 10px; display: block; text-align: center; cursor: pointer;
-    }
-    input[type="file"] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
 
-.file-input-wrapper:hover .btn-file {
-  background: rgba(0, 210, 255, 0.15);
-  border-style: solid;
-  box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
-}
-.btn-file {
-  transition: all 0.3s ease;
-  pointer-events: none; /* Esto hace que el clic pase directo al wrapper */
-}
-      
-    .btn-main {
-      width: 100%; padding: 15px; background: var(--primary); border: none; border-radius: 10px;
-      color: black; font-family: 'Orbitron'; font-weight: bold; cursor: pointer;
-      transition: 0.3s; margin-top: 20px; text-transform: uppercase;
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+    body { 
+      background: var(--bg); 
+      color: white; 
+      font-family: 'Rajdhani', sans-serif; 
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    .btn-main:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
-    .btn-main:disabled { background: #444; color: #888; cursor: not-allowed; }
+
+    /* Header tipo App */
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(3, 5, 8, 0.9);
+    }
+
+    h2 { font-family: 'Orbitron'; font-size: 1.2rem; margin: 0; letter-spacing: 2px; color: var(--primary); }
+
+    .app-form {
+      padding: 25px;
+      flex-grow: 1;
+    }
+
+    .input-group { margin-bottom: 25px; }
+
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-size: 0.75rem; 
+      color: var(--primary); 
+      font-family: 'Orbitron';
+      text-transform: uppercase;
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 100%; 
+      padding: 16px; 
+      background: var(--input-bg); 
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; 
+      color: white; 
+      font-size: 1rem;
+      font-family: 'Rajdhani'; 
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus { border-color: var(--primary); background: rgba(0, 210, 255, 0.05); }
+
+    /* Estilo de Botones de Carga (App Style) */
+    .file-card {
+      background: var(--input-bg);
+      border: 2px dashed rgba(0, 210, 255, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .file-card.uploaded { border-style: solid; border-color: var(--accent); background: rgba(255, 204, 51, 0.05); }
+
+    .file-card i { font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; display: block; }
+    .file-card span { font-size: 0.9rem; color: #ccc; }
+
+    /* Botón de Acción Principal Flotante o Fijo abajo */
+    .footer-actions {
+      padding: 20px;
+      background: linear-gradient(to top, var(--bg) 80%, transparent);
+      position: sticky;
+      bottom: 0;
+    }
+
+    .btn-deploy {
+      width: 100%; 
+      padding: 20px; 
+      background: var(--primary); 
+      border: none; 
+      border-radius: 15px;
+      color: #000; 
+      font-family: 'Orbitron'; 
+      font-weight: 700; 
+      font-size: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+      transition: 0.2s;
+    }
+
+    .btn-deploy:active { transform: scale(0.96); opacity: 0.8; }
+    
+    #status-msg {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 10px;
+      font-family: 'Orbitron';
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <h2>RENTAL APPLICATION</h2>
+
+  <header>
+    <h2>SECURE APPLICATION</h2>
+  </header>
+
+  <div class="app-form">
     <form id="rentalForm">
       <div class="input-group">
-        <label>FULL NAME</label>
-        <input type="text" name="nombre" placeholder="John Doe" required>
+        <label>Full Name</label>
+        <input type="text" name="nombre" placeholder="Enter your full name" required>
       </div>
+
       <div class="input-group">
-        <label>EMAIL ADDRESS</label>
-        <input type="email" name="email" placeholder="john@example.com" required>
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="email@domain.com" required>
       </div>
+
       <div class="input-group">
-        <label>PROPERTY</label>
-        <input type="text" name="propiedad" id="propName" readonly value="11570 Caballo Lake">
+        <label>Target Property</label>
+        <input type="text" name="propiedad" id="propName" readonly style="color: var(--accent); font-weight: bold;">
       </div>
       
-     <div class="input-group">
-  <label>OFFICIAL ID (Photo/PDF)</label>
-  <div class="file-input-wrapper" onclick="document.getElementById('fileId').click()">
-    <span class="btn-file" id="lab1">Click to upload ID</span>
-    <input type="file" id="fileId" name="fileId" accept="image/*,application/pdf" 
-           onchange="document.getElementById('lab1').innerText=this.files[0].name; document.getElementById('lab1').style.borderColor='var(--accent)'" 
-           style="display:none;">
-  </div>
-</div>
+      <div class="input-group">
+        <label>Official Photo ID</label>
+        <div class="file-card" id="cardId" onclick="document.getElementById('fileId').click()">
+          <span id="txtId">Tap to upload ID Photo</span>
+          <input type="file" id="fileId" accept="image/*" onchange="updateUI('fileId', 'cardId', 'txtId')" style="display:none;">
+        </div>
+      </div>
 
-<div class="input-group">
-  <label>PROOF OF INCOME (Check Stub/Bank Stmt)</label>
-  <div class="file-input-wrapper" onclick="document.getElementById('fileIncome').click()">
-    <span class="btn-file" id="lab2">Click to upload documents</span>
-    <input type="file" id="fileIncome" name="fileIncome" accept="image/*,application/pdf" 
-           onchange="document.getElementById('lab2').innerText=this.files[0].name; document.getElementById('lab2').style.borderColor='var(--accent)'" 
-           style="display:none;">
-  </div>
-</div>
-
-      <button type="button" onclick="handleUpload()" id="btnSubmit" class="btn-main">DEPLOY APPLICATION</button>
+      <div class="input-group">
+        <label>Proof of Income</label>
+        <div class="file-card" id="cardIncome" onclick="document.getElementById('fileIncome').click()">
+          <span id="txtIncome">Tap to upload Paystubs</span>
+          <input type="file" id="fileIncome" accept="image/*" onchange="updateUI('fileIncome', 'cardIncome', 'txtIncome')" style="display:none;">
+        </div>
+      </div>
     </form>
   </div>
 
+  <div class="footer-actions">
+    <div id="status-msg">UPLOADING...</div>
+    <button type="button" onclick="handleUpload()" id="btnSubmit" class="btn-deploy">SUBMIT APPLICATION</button>
+  </div>
+
   <script>
-    async function handleUpload() {
-  const form = document.getElementById('rentalForm');
-  const btn = document.getElementById('btnSubmit');
-  
-  const file1 = document.getElementById('fileId').files[0];
-  const file2 = document.getElementById('fileIncome').files[0];
+    const BASE_URL = "https://script.google.com/macros/s/AKfycbxKFO4kgDDS4W5RP7kKqoB5kxzemX3DfOaUb5_8Tjd_-HuD3H0UTJmhRh7QH81R0XTocA/exec";
 
-  if (!form.nombre.value || !file1 || !file2) {
-    alert("Please fill all fields and upload documents.");
-    return;
-  }
-  
-  // VALIDACIÓN DE TAMAÑO (Evita el System Error)
-  if (file1.size > 1024 * 1024 * 5 || file2.size > 1024 * 1024 * 5) {
-    alert("File too large. Max 5MB per file.");
-    return;
-  }
-
-  btn.innerText = "UPLOADING TO SECURE CLOUD...";
-  btn.disabled = true;
-
-  const getBase64 = (file) => new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.readAsDataURL(file);
-  });
-
-  try {
-    const payload = {
-      nombre: form.nombre.value,
-      email: form.email.value,
-      propiedad: document.getElementById('propName').value,
-      fileIdData: await getBase64(file1),
-      fileIdName: file1.name,
-      fileIncomeData: await getBase64(file2),
-      fileIncomeName: file2.name
+    window.onload = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const house = urlParams.get('house');
+      if (house) document.getElementById('propName').value = decodeURIComponent(house);
     };
 
-    // USAR google.script.run para llamar a la función del Code.gs
-    google.script.run
-      .withSuccessHandler(function(res) {
-        if (res.success) {
-          window.top.location.href = "<?= scriptURL ?>?action=confirm";
-        } else {
-          alert("Server Error: " + res.error);
-          btn.disabled = false;
-          btn.innerText = "RETRY DEPLOY";
-        }
-      })
-      .withFailureHandler(function(err) {
-        alert("Critical Error: " + err);
-        btn.disabled = false;
-      })
-      .processApplication(payload); // <--- DEBE LLAMARSE IGUAL QUE EN EL GS
+    function updateUI(inputId, cardId, textId) {
+      const file = document.getElementById(inputId).files[0];
+      if (file) {
+        document.getElementById(cardId).classList.add('uploaded');
+        document.getElementById(textId).innerText = "✅ " + file.name;
+      }
+    }
 
-  } catch (e) {
-    alert("Connection Error: " + e);
-    btn.disabled = false;
-  }
-}
+    async function handleUpload() {
+      const form = document.getElementById('rentalForm');
+      const btn = document.getElementById('btnSubmit');
+      const msg = document.getElementById('status-msg');
+      
+      const file1 = document.getElementById('fileId').files[0];
+      const file2 = document.getElementById('fileIncome').files[0];
+
+      if (!form.nombre.value || !file1 || !file2) {
+        alert("Please complete all fields."); return;
+      }
+
+      btn.disabled = true;
+      btn.style.display = "none";
+      msg.style.display = "block";
+
+      const getBase64 = (file) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+
+      try {
+        const payload = {
+          action: "submit_app",
+          nombre: form.nombre.value,
+          email: form.email.value,
+          propiedad: document.getElementById('propName').value,
+          fileIdData: await getBase64(file1),
+          fileIdName: file1.name,
+          fileIncomeData: await getBase64(file2),
+          fileIncomeName: file2.name
+        };
+
+        fetch(BASE_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            msg.innerText = "SUCCESSFULLY DEPLOYED!";
+            setTimeout(() => { window.location.href = "index.html"; }, 1500);
+          } else {
+            alert("Error: " + res.error);
+            btn.disabled = false;
+            btn.style.display = "block";
+            msg.style.display = "none";
+          }
+        });
+      } catch (e) {
+        alert("Connection Error.");
+        btn.disabled = false;
+        btn.style.display = "block";
+      }
+    }
   </script>
 </body>
 </html>
