@@ -282,9 +282,9 @@ footer {
   <div class="nav-links">
     <a onclick="navegar('home')">Home</a>
     <a href="#rentals">Rentals</a>
-    <a onclick="navegar('report')">Tenant Portal</a>
-    <a onclick="navegar('worker')">Staff</a>
-    <a onclick="navegar('admin')">Admin</a>
+     <a href="report.html">Tenant Portal</a>
+    <a href="worker.html">Staff</a>
+    <a href="admin.html">Admin</a>
   </div>
 </nav>
 
@@ -322,89 +322,81 @@ footer {
   <div class="footer-col">
     <h4>QUICK LINKS</h4>
     <ul>
-      <li><a onclick="navegar('report')">Tenant Portal</a></li>
-      <li><a onclick="navegar('worker')">Staff Dashboard</a></li>
-      <li><a onclick="navegar('admin')">Master Admin</a></li>
+      <li><a href="report.html">Tenant Portal</a></li>
+      <li><a href="worker.html">Worker</a></li>
+      <li><a href="admin.html">Admin</a></li>
     </ul>
   </div>
 </footer>
 
-<script>
-// --- CONFIGURACIÓN DE NAVEGACIÓN MANUAL ---
-const BASE_URL = "https://script.google.com/macros/s/AKfycbw_rkColjOFspNqYghxbk9_Fxtx1GKA6CIkjToz5Qyi6YudXVXvjJOWmzCgqbIB4j4Y9w/exec";
+    <script>
+// --- CONFIGURACIÓN ---
+// Asegúrate de que el nombre del archivo sea exacto (img/propiedades.json)
+const JSON_FILE = "img/propiedades.json"; 
+
+// Tu URL de Google Apps Script para las funciones de navegación
+const BASE_URL = "https://script.google.com/macros/s/AKfycbxtDQA2KFjRIFwEV4VZJrtGSaacJW0lexFNj8w212ctNnaSNiDGdvlZKYgGuIw70huf/exec";
+
+// Función para movernos entre páginas (Apply, Report, etc.)
 function navegar(accion) {
-  window.location.href = "?action=" + accion;
+  window.top.location.href = BASE_URL + "?action=" + accion;
 }
 
+// Al cargar la página, leemos el JSON
 window.onload = () => {
-  console.log("Iniciando conexión con Aldo Properties DB...");
-
-  if (typeof google === "undefined" || !google.script) {
-    document.getElementById("grid-propietaria").innerHTML =
-      "<p id='loader'>ERROR: NO SE ESTÁ EJECUTANDO EN GOOGLE APPS SCRIPT</p>";
-    return;
-  }
-
-  google.script.run
-    .withSuccessHandler(dibujarCasas)
-    .withFailureHandler(err => {
-      console.error("Error en servidor:", err);
-      document.getElementById("grid-propietaria").innerHTML =
-        `<p id='loader'>ERROR DB: ${err.message || err}</p>`;
+  fetch(JSON_FILE)
+    .then(response => {
+      if (!response.ok) throw new Error("No se encontró el archivo JSON en la ruta: " + JSON_FILE);
+      return response.json();
     })
-    .getPropiedades();
+    .then(data => dibujarCasas(data))
+    .catch(err => {
+      console.error(err);
+      document.getElementById("grid-propietaria").innerHTML = 
+        `<p id='loader' style='color:#ff4444'>ERROR: No se pudo cargar la base de datos local.<br><small>${err.message}</small></p>`;
+    });
 };
 
 function dibujarCasas(properties) {
   const container = document.getElementById("grid-propietaria");
-  console.log("Datos recibidos:", properties);
-
-  if (!properties || properties.length === 0) {
-    container.innerHTML = "<p id='loader'>BASE DE DATOS VACÍA.</p>";
-    return;
-  }
   
-  // FILTRO: Respetando tus estatus "For Rent" y "Cooming Soon" (con doble O)
+  // Filtro: For Rent y Cooming Soon (respetando tu typo de la tabla)
   const disponibles = properties.filter(c => 
-    c.estatus === "For Rent" || 
-    c.estatus === "Coming Soon" || 
-    c.estatus === "Cooming Soon"
+    c.estatus === "For Rent" || c.estatus === "Coming Soon" || c.estatus === "Cooming Soon"
   );
 
   if (disponibles.length === 0) {
-    container.innerHTML = "<p id='loader'>NO HAY CASAS DISPONIBLES EN ESTE MOMENTO.</p>";
+    container.innerHTML = "<p id='loader'>SISTEMA ALDO: NO HAY PROPIEDADES DISPONIBLES HOY.</p>";
     return;
   }
 
   container.innerHTML = disponibles.map(c => {
-    // CORRECCIÓN DE LA URL DE MAPS (Sin llaves rotas)
-    const queryMaps = encodeURIComponent(c.direccion + ", El Paso, TX");
-    const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + queryMaps;
+    // Link de Maps
+    const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(c.direccion + " El Paso, TX");
     
-    // Imagen de respaldo si el link de Drive no es directo
-    const imgPlaceholder = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600";
+    // Formatear precio con comas
+    const precioTxt = Number(c.precio).toLocaleString('en-US');
 
     return `
     <div class="property-card">
-      <div class="prop-img"
-           style="background-image:url('${imgPlaceholder}')"
+      <div class="prop-img" 
+           style="background-image:url('${c.foto}')" 
            onclick="window.open('${c.foto}', '_blank')">
         <div class="badge" 
-             style="background:${c.estatus === 'For Rent' ? 'var(--primary)' : 'var(--accent)'}; color: #000;">
+             style="background:${c.estatus.includes('Rent') ? 'var(--primary)' : 'var(--accent)'}; color:#000;">
           ${c.estatus}
         </div>
       </div>
       <div class="prop-info">
-        <a href="${mapsLink}" target="_blank" style="text-decoration:none; color:inherit;">
-          <h3 style="cursor:pointer; margin: 0 0 10px 0;">📍 ${c.direccion}</h3>
+        <a href="${mapsLink}" target="_blank" class="prop-address-link">
+          <h3>📍 ${c.direccion}</h3>
         </a>
-        <p class="prop-price">$${Number(c.precio).toLocaleString()} / mo</p>
+        <p class="prop-price">$${precioTxt} / mo</p>
         <div class="prop-details">
           <span>🛏️ ${c.habitaciones} Beds</span>
           <span>🛁 ${c.banios} Baths</span>
         </div>
-        <button class="btn-apply"
-          onclick="navegar('apply&house=' + encodeURIComponent('${c.direccion}'))">
+        <button class="btn-apply" onclick="navegar('apply&house=' + encodeURIComponent('${c.direccion}'))">
           APPLY TO RENT
         </button>
       </div>
