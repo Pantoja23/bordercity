@@ -330,68 +330,54 @@ footer {
 </footer>
 
     <script>
-// --- CONFIGURACIÓN ---
-// Asegúrate de que el nombre del archivo sea exacto (img/propiedades.json)
-const JSON_FILE = "https://ndev-cors.panta.workers.dev/?url=https://drive.google.com/uc?export=download&id=1B3EhJPEFziQ9MoGgQ1J546mbB8lQkRjL";
-      
-// Tu URL de Google Apps Script para las funciones de navegación
+// CONFIGURACIÓN - Link Directo de Aldo Properties
+const JSON_FILE = "https://ndev-cors.panta.workers.dev/?url=https://drive.google.com/uc?export=download&id=1B3EhJPEFziQ9MoGgQ1J546mbB8lQkRjL"; 
 const BASE_URL = "https://script.google.com/macros/s/AKfycbxtDQA2KFjRIFwEV4VZJrtGSaacJW0lexFNj8w212ctNnaSNiDGdvlZKYgGuIw70huf/exec";
 
-// Función para movernos entre páginas (Apply, Report, etc.)
 function navegar(accion) {
   window.top.location.href = BASE_URL + "?action=" + accion;
 }
 
-// Al cargar la página, leemos el JSON
 window.onload = () => {
   fetch(JSON_FILE)
     .then(response => {
-      if (!response.ok) throw new Error("No se encontró el archivo JSON en la ruta: " + JSON_FILE);
+      if (!response.ok) throw new Error("Servidor no responde");
       return response.json();
     })
     .then(data => dibujarCasas(data))
     .catch(err => {
       console.error(err);
       document.getElementById("grid-propietaria").innerHTML = 
-        `<p id='loader' style='color:#ff4444'>ERROR: No se pudo cargar la base de datos local.<br><small>${err.message}</small></p>`;
+        `<p id='loader' style='color:#ff4444'>ERROR: Verifica que el archivo JSON en Drive sea público.<br><small>${err.message}</small></p>`;
     });
 };
 
 function dibujarCasas(properties) {
   const container = document.getElementById("grid-propietaria");
   
-  // Filtro: For Rent y Cooming Soon (respetando tu typo de la tabla)
   const disponibles = properties.filter(c => 
     c.estatus === "For Rent" || c.estatus === "Coming Soon" || c.estatus === "Cooming Soon"
   );
 
   if (disponibles.length === 0) {
-    container.innerHTML = "<p id='loader'>SISTEMA ALDO: NO HAY PROPIEDADES DISPONIBLES HOY.</p>";
+    container.innerHTML = "<p id='loader'>NO HAY PROPIEDADES DISPONIBLES.</p>";
     return;
   }
 
   container.innerHTML = disponibles.map(c => {
-    // Link de Maps
     const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(c.direccion + " El Paso, TX");
-    
-    // Formatear precio con comas
-    const precioTxt = Number(c.precio).toLocaleString('en-US');
-
     return `
     <div class="property-card">
-      <div class="prop-img" 
-           style="background-image:url('${c.foto}')" 
-           onclick="window.open('${c.foto}', '_blank')">
-        <div class="badge" 
-             style="background:${c.estatus.includes('Rent') ? 'var(--primary)' : 'var(--accent)'}; color:#000;">
+      <div class="prop-img" style="background-image:url('${c.foto}')">
+        <div class="badge" style="background:${c.estatus.includes('Rent') ? 'var(--primary)' : 'var(--accent)'}; color:#000;">
           ${c.estatus}
         </div>
       </div>
       <div class="prop-info">
-        <a href="${mapsLink}" target="_blank" class="prop-address-link">
-          <h3>📍 ${c.direccion}</h3>
+        <a href="${mapsLink}" target="_blank" style="text-decoration:none; color:inherit;">
+          <h3 style="cursor:pointer">📍 ${c.direccion}</h3>
         </a>
-        <p class="prop-price">$${precioTxt} / mo</p>
+        <p class="prop-price">$${Number(c.precio).toLocaleString()} / mo</p>
         <div class="prop-details">
           <span>🛏️ ${c.habitaciones} Beds</span>
           <span>🛁 ${c.banios} Baths</span>
