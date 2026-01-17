@@ -2,216 +2,285 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Border City Homes | Intelligence Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aldo Properties | Tenant Concierge</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --accent: #00d2ff;
-            --gold: #ffcc33; /* Oro más brillante para mejor contraste */
-            --glass: rgba(10, 15, 20, 0.85); /* Fondo más oscuro para que se lea mejor en el sol */
-            --dark-bg: #05070a;
+            --primary: #00d2ff;
+            --gold: #ffcc33;
+            --bg: #030508;
+            --glass: rgba(15, 20, 25, 0.9);
+            --border: rgba(0, 210, 255, 0.2);
         }
+
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
 
         body {
             margin: 0;
             font-family: 'Rajdhani', sans-serif;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            background: radial-gradient(circle at center, #0a111a 0%, #030508 100%);
             color: white;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
+            padding: 20px;
         }
 
-        /* Overlay para asegurar legibilidad */
+        /* Fondo Animado Sutil */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
             z-index: -1;
         }
 
         .container {
-            width: 92%;
-            max-width: 450px;
+            width: 100%;
+            max-width: 480px;
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(0, 210, 255, 0.3); /* Borde más marcado */
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 40px 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             text-align: center;
         }
 
         .logo-font {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(0,210,255,0.5);
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            color: var(--primary);
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0,210,255,0.3);
         }
 
-        #tenant-info {
-            background: rgba(255, 204, 51, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 1.1rem; /* Más grande */
-            font-weight: 500;
-            border-left: 5px solid var(--gold);
+        .tenant-card {
+            background: rgba(255, 204, 51, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid var(--gold);
             text-align: left;
-            color: #fff;
         }
+
+        /* Esto arregla el contraste del drop box */
+select option {
+    background-color: #1a1d21; /* Fondo oscuro sólido */
+    color: white;              /* Texto blanco */
+    padding: 10px;
+}
+
+/* Estilo específico para el select cuando está cerrado */
+select {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #333;
+    padding: 15px 15px 15px 45px;
+    border-radius: 15px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    appearance: none; /* Quita el estilo nativo para mejor control */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Añadimos una flechita personalizada porque al quitar el appearance desaparece */
+.input-group:has(select)::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    pointer-events: none;
+}
 
         .input-group {
-            margin-bottom: 18px;
-            text-align: left;
+            margin-bottom: 15px;
+            position: relative;
         }
 
-        /* AJUSTE PARA CELULAR: Inputs más grandes y legibles */
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
         input, select, textarea {
             width: 100%;
-            background: #1a1d21; /* Fondo sólido oscuro para evitar el "borroso" */
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 16px; /* Más espacio para dedos grandes */
-            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            padding: 15px 15px 15px 45px;
+            border-radius: 15px;
             color: white;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem; /* Tamaño ideal para no forzar la vista */
-            font-weight: 600;
+            font-size: 1.1rem;
             outline: none;
-            box-sizing: border-box;
+            transition: 0.3s;
         }
 
-        input:focus { 
-            border-color: var(--accent); 
-            background: #202429;
-        }
+        textarea { padding-left: 15px; height: 100px; resize: none; }
 
-        /* Placeholder con más contraste */
-        ::placeholder { color: #bbb; opacity: 1; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: rgba(0,210,255,0.05);
+            box-shadow: 0 0 10px rgba(0,210,255,0.1);
+        }
 
         .btn-glow {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #00d2ff, #004e92);
+            padding: 20px;
+            background: linear-gradient(45deg, #00d2ff, #0055ff);
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             color: white;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,210,255,0.4);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,85,255,0.3);
+            margin-top: 10px;
+            transition: 0.3s;
         }
 
-        .contact-tenant {
-            margin-top: 25px;
-            font-size: 1.1rem;
-            color: #eee;
+        .btn-glow:active { transform: scale(0.97); }
+
+        .emergency-box {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .contact-tenant a { 
-            color: var(--gold); 
-            text-decoration: none; 
-            font-weight: bold; 
-            display: block; 
-            font-size: 1.4rem; 
-            margin-top: 5px;
+        .emergency-box a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-family: 'Orbitron';
+            display: block;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        /* Estilo para los Labels de idioma */
+        .lang-switch {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 10px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="logo-font">Border City</div>
-    <div style="font-family: 'Orbitron'; font-size: 1rem; color: white; letter-spacing: 5px;">HOMES</div>
+    <div class="logo-font">ALDO PROPERTIES</div>
+    <div style="font-family: 'Orbitron'; font-size: 0.7rem; color: #888; letter-spacing: 3px; margin-bottom: 10px;">MAINTENANCE PORTAL</div>
     
-    <div id="tenant-info">
-        <strong id="lbl-info-head" style="color: var(--gold);">💡 Info Inquilino:</strong><br>
-        <span id="json-text">...</span>
+    <div class="tenant-card">
+        <strong id="lbl-info-head" style="color: var(--gold); font-family: 'Orbitron'; font-size: 0.8rem;">CONCIERGE MSG:</strong><br>
+        <span id="json-text" style="font-size: 0.95rem; line-height: 1.4;">Welcome. How can we assist you today?</span>
     </div>
 
     <form id="orderForm">
         <div class="input-group">
-            <input type="text" name="Cliente" id="f-name" placeholder="NOMBRE COMPLETO" style="text-transform: capitalize;" required>
+            <i class="fas fa-user"></i>
+            <input type="text" name="Cliente" id="f-name" placeholder="FULL NAME" required>
         </div>
 
         <div class="input-group">
-            <input type="tel" id="telMask" name="Telefono" placeholder="TELÉFONO" maxlength="14" required>
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="telMask" name="Telefono" placeholder="PHONE NUMBER" maxlength="14" required>
         </div>
 
         <div class="input-group">
-            <input type="email" id="emailInput" name="Email" placeholder="CORREO ELECTRÓNICO" required>
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="emailInput" name="Email" placeholder="EMAIL ADDRESS" required>
         </div>
 
         <div class="input-group">
-            <input type="text" name="Direccion" id="f-address" placeholder="PROPIEDAD / DIRECCIÓN" required>
+            <i class="fas fa-home"></i>
+            <input type="text" name="Direccion" id="f-address" placeholder="PROPERTY ADDRESS" required>
         </div>
 
         <div class="input-group">
-            <select name="Servicio" id="f-service" required>
-                <option value="" disabled selected id="opt-service">TIPO DE SERVICIO</option>
-                <option value="HVAC">AIR CONDITIONING / HEATING</option>
-                <option value="Plumbing">PLUMBING</option>
-                <option value="Electric">ELECTRICAL</option>
-                <option value="Appliance">APPLIANCE REPAIR</option>
-            </select>
-        </div>
+    <i class="fas fa-cog"></i>
+    <select name="Servicio" id="f-service" required>
+        <option value="" disabled selected id="opt-service" style="color: #888;">SELECT SERVICE TYPE</option>
+        <option value="HVAC">AIR CONDITIONING / HEATING</option>
+        <option value="Plumbing">PLUMBING</option>
+        <option value="Electric">ELECTRICAL</option>
+        <option value="Appliance">APPLIANCE REPAIR</option>
+        <option value="Roofing/Leaks">ROOFING / LEAKS</option>
+        <option value="Other">OTHER ISSUES</option>
+    </select>
+</div>
 
-        <textarea name="Mensaje" id="f-msg" rows="3" placeholder="DESCRIPCIÓN DEL REPORTE"></textarea>
+        <div class="input-group">
+            <textarea name="Mensaje" id="f-msg" placeholder="DETAILED DESCRIPTION OF THE ISSUE"></textarea>
+        </div>
         
-        <button type="submit" id="btn-submit" class="btn-glow">DEPLOY WORK ORDER</button>
+        <button type="submit" id="btn-submit" class="btn-glow">DEPLOY REQUEST</button>
     </form>
 
-    <div class="contact-tenant">
-        <span id="lbl-emergency">Emergencias 24/7:</span>
+    <div class="emergency-box">
+        <span id="lbl-emergency" style="font-size: 0.9rem; color: #aaa;">24/7 EMERGENCY LINE:</span>
         <a href="tel:9152828490">(915) 282-8490</a>
     </div>
+
+    <div class="lang-switch" id="lang-tag">Detecting locale...</div>
 </div>
 
 <script>
-    // --- LÓGICA BILINGÜE ---
+    // --- LÓGICA BILINGÜE AVANZADA ---
     const i18n = {
         es: {
-            infoHead: "💡 Info Inquilino:",
-            welcome: "Bienvenido al portal de mantenimiento de Border City.",
+            infoHead: "MSJ CONSERJERÍA:",
+            welcome: "Bienvenido. ¿En qué podemos ayudarle hoy?",
             name: "NOMBRE COMPLETO",
             phone: "TELÉFONO (10 DÍGITOS)",
             email: "CORREO ELECTRÓNICO",
-            address: "PROPIEDAD / DIRECCIÓN",
+            address: "DIRECCIÓN DE LA PROPIEDAD",
             service: "TIPO DE SERVICIO",
-            msg: "DESCRIPCIÓN DEL REPORTE",
-            btn: "ENVIAR ORDEN DE TRABAJO",
-            btnWait: "SISTEMA ENVIANDO...",
-            btnOk: "ENVÍO EXITOSO",
-            emergency: "Emergencias 24/7:",
-            errorMail: "Ingrese un correo válido (debe incluir @ y .com)"
+            msg: "DESCRIPCIÓN DETALLADA DEL PROBLEMA",
+            btn: "ENVIAR SOLICITUD",
+            btnWait: "SISTEMA DESPLEGANDO...",
+            emergency: "LÍNEA DE EMERGENCIAS 24/7:",
+            tag: "MODO: ESPAÑOL"
         },
         en: {
-            infoHead: "💡 Tenant Info:",
-            welcome: "Welcome to the Border City maintenance portal.",
+            infoHead: "CONCIERGE MSG:",
+            welcome: "Welcome. How can we assist you today?",
             name: "FULL NAME",
             phone: "PHONE NUMBER (10 DIGITS)",
             email: "EMAIL ADDRESS",
-            address: "PROPERTY / ADDRESS",
-            service: "SERVICE TYPE",
-            msg: "REPORT DESCRIPTION",
-            btn: "DEPLOY WORK ORDER",
+            address: "PROPERTY ADDRESS",
+            service: "SELECT SERVICE TYPE",
+            msg: "DETAILED DESCRIPTION OF THE ISSUE",
+            btn: "DEPLOY REQUEST",
             btnWait: "SYSTEM DEPLOYING...",
-            btnOk: "SUCCESSFUL DEPLOY",
-            emergency: "24/7 Emergencies:",
-            errorMail: "Enter a valid email (must include @ and .com)"
+            emergency: "24/7 EMERGENCY LINE:",
+            tag: "MODE: ENGLISH"
         }
     };
 
-    // Detectar idioma del teléfono
-    const userLang = navigator.language || navigator.userLanguage;
-    const lang = userLang.startsWith('es') ? 'es' : 'en';
-    const t = i18n[lang];
+    const userLang = (navigator.language || navigator.userLanguage).startsWith('es') ? 'es' : 'en';
+    const t = i18n[userLang];
 
     // Aplicar traducción
     document.getElementById('lbl-info-head').innerText = t.infoHead;
@@ -224,8 +293,9 @@
     document.getElementById('f-msg').placeholder = t.msg;
     document.getElementById('btn-submit').innerText = t.btn;
     document.getElementById('lbl-emergency').innerText = t.emergency;
+    document.getElementById('lang-tag').innerText = t.tag;
 
-    // --- MÁSCARA DE TELÉFONO ---
+    // Máscara de teléfono
     const telInput = document.getElementById('telMask');
     telInput.addEventListener('input', (e) => {
         let value = e.target.value.replace(/\D/g, ''); 
@@ -233,7 +303,7 @@
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 
-    // --- ENVÍO DE DATOS ---
+    // Envío de datos
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btn-submit');
@@ -247,19 +317,14 @@
             mode: 'no-cors',
             body: new FormData(this)
         })
-    .then(() => {
-        // Redirigir a la página de confirmación
-        // Aquí podrías añadir el ID del reporte si tu script de Apps Script lo retorna
-        window.location.href = 'confirmation.html'; 
-        // Si Apps Script te devuelve un ID, podrías hacer:
-        // window.location.href = 'confirmation.html?id=' + ID_DEL_REPORTE;
-    })
-    .catch(error => {
-        console.error('Error!', error.message);
-        alert("System Error: No se pudo conectar con el servidor.");
-        btn.disabled = false;
-        btn.innerText = "RETRY DEPLOY";
-    });
+        .then(() => {
+            window.location.href = 'confirmation.html'; 
+        })
+        .catch(error => {
+            alert("Network Error. Please try again.");
+            btn.disabled = false;
+            btn.innerText = t.btn;
+        });
     });
 </script>
 
