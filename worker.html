@@ -3,86 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BCH | Worker Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>Aldo Properties | Worker Ops</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary: #10b981; --accent: #ffcc33; --bg: #050a08;
-            --card: rgba(20, 30, 25, 0.95); --danger: #ef4444;
-            --glass-border: rgba(16, 185, 129, 0.2);
+            --primary: #00ff88; /* Verde Neón para Workers */
+            --accent: #ffcc33; 
+            --bg: #030505;
+            --card: rgba(20, 25, 25, 0.95);
+            --danger: #ff4444;
+            --border: rgba(0, 255, 136, 0.2);
         }
-        body { margin: 0; font-family: 'Rajdhani', sans-serif; background: var(--bg); color: white; height: 100vh; overflow: hidden; }
+
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+        body { 
+            margin: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            background: var(--bg); 
+            color: white; 
+            height: 100vh; 
+            overflow-x: hidden;
+        }
+
         .hidden { display: none !important; }
-        .view { height: 100vh; padding: 20px; box-sizing: border-box; overflow-y: auto; }
-        .detail-view { position: fixed; inset: 0; background: var(--bg); z-index: 1000; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
-        .job-card { background: var(--card); border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--primary); color: black; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-        .btn-action { background: var(--card); height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; border: 1px solid var(--glass-border); text-decoration: none; font-size: 1.2rem; }
-        #timer { font-size: 45px; font-family: 'Orbitron'; text-align: center; margin: 15px 0; color: var(--primary); text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-        textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--primary); border-radius: 10px; color: white; padding: 10px; height: 60px; box-sizing: border-box; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+
+        /* HEADER APP */
+        header {
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .logo-text { font-family: 'Orbitron'; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
+
+        /* VISTAS */
+        .view { padding: 20px; min-height: calc(100vh - 60px); }
+
+        /* LOGIN */
+        #view_login { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .login-box {
+            width: 100%; max-width: 350px; padding: 30px;
+            background: var(--card); border-radius: 25px; border: 1px solid var(--border);
+            text-align: center; box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+        }
+
+        /* TARJETAS DE TRABAJO */
+        .job-card {
+            background: var(--card); border-radius: 18px; padding: 20px;
+            margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s;
+        }
+        .job-card:active { transform: scale(0.98); background: rgba(0, 255, 136, 0.05); }
+
+        /* BOTONES NATIVOS */
+        .btn-main {
+            width: 100%; padding: 18px; border-radius: 15px; border: none;
+            background: var(--primary); color: black; font-family: 'Orbitron';
+            font-weight: bold; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* DETALLE DE TRABAJO */
+        .detail-view {
+            position: fixed; inset: 0; background: var(--bg); z-index: 1000;
+            padding: 20px; display: flex; flex-direction: column; overflow-y: auto;
+        }
+
+        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .btn-action {
+            background: rgba(255,255,255,0.05); height: 65px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; border: 1px solid var(--border); font-size: 1.5rem;
+        }
+
+        #timer {
+            font-size: 3.5rem; font-family: 'Orbitron'; text-align: center;
+            margin: 20px 0; color: var(--primary); font-weight: 700;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        textarea {
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 15px; color: white; padding: 15px; height: 100px;
+            font-family: 'Rajdhani'; font-size: 1rem; margin-top: 10px; outline: none;
+        }
+
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid var(--primary);
+            border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:2000; display:flex; align-items:center; justify-content:center;"><div class="spinner"></div></div>
+<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:2000; display:flex; align-items:center; justify-content:center;"><div class="spinner"></div></div>
 
 <div id="view_login" class="view">
-    <div style="text-align:center; margin-top:50px;">
-        <div style="font-family:'Orbitron'; color:var(--primary); font-size:2rem; margin-bottom:30px;">BCH WORKER</div>
-        <input type="text" id="user_id" placeholder="USER ID" style="width:100%; padding:15px; margin-bottom:10px; background:#000; border:1px solid var(--primary); color:white; border-radius:8px;">
-        <input type="password" id="user_pass" placeholder="PASSWORD" style="width:100%; padding:15px; margin-bottom:20px; background:#000; border:1px solid var(--primary); color:white; border-radius:8px;">
-        <button onclick="handleLogin()" class="btn-main">ENTRAR</button>
+    <div class="login-box">
+        <div style="font-family:'Orbitron'; color:var(--primary); font-size:1.4rem; margin-bottom:10px;">ALDO PROPERTIES</div>
+        <div style="font-size:0.8rem; letter-spacing:2px; color:#888; margin-bottom:30px;">FIELD OPS SYSTEM</div>
+        <input type="text" id="user_id" placeholder="WORKER ID" style="width:100%; padding:15px; margin-bottom:12px; background:#111; border:1px solid #333; color:white; border-radius:10px; font-family:'Orbitron';">
+        <input type="password" id="user_pass" placeholder="PASSWORD" style="width:100%; padding:15px; margin-bottom:25px; background:#111; border:1px solid #333; color:white; border-radius:10px; font-family:'Orbitron';">
+        <button onclick="handleLogin()" class="btn-main">INITIALIZE</button>
     </div>
 </div>
 
 <div id="view_list" class="view hidden">
-    <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <div style="font-family:'Orbitron'; color:var(--primary);">BCH | FIELD OPS</div>
-        <button onclick="logout()" style="background:none; border:none; color:var(--danger); font-size:1.2rem;"><i class="fas fa-power-off"></i></button>
+    <header>
+        <div class="logo-text">ALDO PROPERTIES | STAFF</div>
+        <button onclick="logout()" style="background:none; border:none; color:var(--danger); font-size:1.3rem;"><i class="fas fa-power-off"></i></button>
     </header>
-    <div id="jobs_container"></div>
+    <div style="padding: 20px 0;">
+        <h2 style="font-family:'Orbitron'; font-size:1.1rem; color:var(--accent); margin-bottom:20px;">ASSIGNED MISSIONS</h2>
+        <div id="jobs_container"></div>
+    </div>
 </div>
 
 <div id="view_detail" class="detail-view hidden">
-    <button id="btn_back" onclick="closeDetail()" style="width:100px; background:var(--card); color:white; border:1px solid var(--glass-border); padding:8px; border-radius:8px; margin-bottom:15px;">VOLVER</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <button id="btn_back" onclick="closeDetail()" style="background:none; border:1px solid #555; color:white; padding:8px 15px; border-radius:10px; font-family:'Orbitron'; font-size:0.7rem;">← BACK</button>
+        <span style="font-family:'Orbitron'; color:var(--primary); font-size:0.8rem;">MISSION BRIEF</span>
+    </div>
     
-    <h2 id="det_addr" style="margin:0; color:var(--primary); font-size:1.5rem;"></h2>
-    <p id="det_client" style="color:var(--accent); margin:5px 0; font-weight:bold;"></p>
-    <div id="det_service" style="font-size:0.9rem; color:#ccc;"></div>
+    <h2 id="det_addr" style="margin:0; color:var(--primary); font-size:1.8rem; font-family:'Orbitron';"></h2>
+    <p id="det_client" style="color:var(--accent); margin:10px 0; font-size:1.1rem;"></p>
+    <div id="det_service" style="font-size:1rem; color:#aaa; line-height:1.4; background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;"></div>
 
     <div class="action-grid">
         <a id="btn_wa" class="btn-action" style="color:#25D366;"><i class="fab fa-whatsapp"></i></a>
-        <a id="btn_maps" class="btn-action" target="_blank" style="color:#4285F4;"><i class="fas fa-map-marker-alt"></i></a>
+        <a id="btn_maps" class="btn-action" style="color:#4285F4;"><i class="fas fa-map-marker-alt"></i></a>
         <a id="btn_tel" class="btn-action" style="color:#94a3b8;"><i class="fas fa-phone"></i></a>
     </div>
 
     <div id="timer">00:00:00</div>
 
-    <div style="margin-bottom:10px;">
-        <small style="color:var(--primary); font-weight:bold;">REPORTE FINAL (OBLIGATORIO):</small>
-        <textarea id="staff_notes" placeholder="Describe lo que reparaste..."></textarea>
+    <div style="margin-bottom:20px;">
+        <label style="color:var(--primary); font-family:'Orbitron'; font-size:0.7rem;">WORK LOG / FINAL REPORT:</label>
+        <textarea id="staff_notes" placeholder="Describe the solution..."></textarea>
     </div>
 
-    <button id="btn_punch" class="btn-main" onclick="handlePunch()">CARGANDO...</button>
+    <button id="btn_punch" class="btn-main" onclick="handlePunch()">LOADING...</button>
 </div>
 
 <script>
     const URL_SCRIPT = "https://script.google.com/macros/s/AKfycby8VcBwqO6JL8C7Rh_oI2ehcJL1nCzG-FLs6x5NYYPkgxNuw5gzU5zVShyz3eeyvfOsMQ/exec"; 
-    let workerData = JSON.parse(localStorage.getItem('bch_worker'));
+    let workerData = JSON.parse(localStorage.getItem('aldo_worker'));
     let activeJob = null;
     let timerInterval;
 
     window.onload = () => {
-    const savedUser = localStorage.getItem('bch_worker');
-    if (savedUser) {
-        workerData = JSON.parse(savedUser);
-        showApp(); // Esta función debe saltarse el login e ir a la lista
-    }
-};
+        if (workerData) showApp();
+    };
+
     async function handleLogin() {
         const user = document.getElementById('user_id').value;
         const pass = document.getElementById('user_pass').value;
@@ -91,10 +171,11 @@
             const res = await fetch(`${URL_SCRIPT}?action=login_staff&user=${user}&pass=${pass}`);
             const data = await res.json();
             if(data.success) {
-                localStorage.setItem('bch_worker', JSON.stringify(data));
-                location.reload();
-            } else { alert("Acceso denegado"); }
-        } catch(e) { alert("Error de conexión"); }
+                localStorage.setItem('aldo_worker', JSON.stringify(data));
+                workerData = data;
+                showApp();
+            } else { alert("ACCESS DENIED"); }
+        } catch(e) { alert("CONNECTION ERROR"); }
         toggleLoader(false);
     }
 
@@ -103,7 +184,6 @@
         document.getElementById('view_list').classList.remove('hidden');
         await loadJobs();
 
-        // PERSISTENCIA: Si hay un trabajo activo en el servidor o localmente
         const savedJobId = localStorage.getItem('active_job_id');
         if(savedJobId) {
             const job = JSON.parse(localStorage.getItem('active_job_data'));
@@ -117,42 +197,38 @@
             const jobs = await res.json();
             document.getElementById('jobs_container').innerHTML = jobs.map(j => `
                 <div class="job-card" onclick='openJob(${JSON.stringify(j)})'>
-                    <div><div style="font-weight:bold; font-size:1.1rem;">${j.direccion}</div><div style="color:#888; font-size:0.8rem;">${j.servicio}</div></div>
-                    <i class="fas fa-chevron-right" style="color:var(--primary);"></i>
+                    <div style="flex:1">
+                        <div style="font-family:'Orbitron'; font-size:1rem; color:white; margin-bottom:5px;">${j.direccion}</div>
+                        <div style="color:var(--primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">${j.servicio}</div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color:#444;"></i>
                 </div>
             `).join('');
-        } catch(e) { console.error("Error cargando lista"); }
+        } catch(e) { console.error("Error loading jobs"); }
     }
 
     function openJob(j) {
-    activeJob = j;
-    document.getElementById('view_detail').classList.remove('hidden');
-    document.getElementById('det_addr').innerText = j.direccion;
-    document.getElementById('det_client').innerText = j.cliente;
-    document.getElementById('det_service').innerText = j.servicio;
+        activeJob = j;
+        document.getElementById('view_detail').classList.remove('hidden');
+        document.getElementById('det_addr').innerText = j.direccion;
+        document.getElementById('det_client').innerText = j.cliente;
+        document.getElementById('det_service').innerText = j.servicio;
 
-    // BOTÓN WHATSAPP: Abre pestaña nueva y no cierra la App
-    document.getElementById('btn_wa').onclick = function() {
-        // Limpiamos el teléfono de espacios o guiones
-        const tel = String(j.telefono).replace(/\D/g, ''); 
-        const msg = encodeURIComponent(`Hola ${j.cliente}, le saluda el Staff de BCH. Ya voy en camino.`);
-        window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-    };
+        document.getElementById('btn_wa').onclick = () => {
+            const tel = String(j.telefono).replace(/\D/g, ''); 
+            window.open(`https://wa.me/${tel}?text=${encodeURIComponent('Aldo Properties Staff: I am on my way.')}`, '_blank');
+        };
 
-    // BOTÓN MAPAS: Abre Google Maps en pestaña nueva
-    document.getElementById('btn_maps').onclick = function() {
-        const addr = encodeURIComponent(j.direccion);
-        window.open(`https://www.google.com/maps/search/?api=1&query=${addr}`, '_blank');
-    };
+        document.getElementById('btn_maps').onclick = () => {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.direccion)}`, '_blank');
+        };
 
-    // BOTÓN LLAMAR: Este abre la app de teléfono nativa
-    document.getElementById('btn_tel').onclick = function() {
-        const tel = String(j.telefono).replace(/\D/g, '');
-        window.location.href = `tel:${tel}`;
-    };
+        document.getElementById('btn_tel').onclick = () => {
+            window.location.href = `tel:${j.telefono}`;
+        };
 
-    updateUI();
-}
+        updateUI();
+    }
 
     function updateUI() {
         const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
@@ -160,14 +236,16 @@
         const btnBack = document.getElementById('btn_back');
 
         if(isClocked) {
-            btn.innerText = "FINALIZAR TRABAJO";
+            btn.innerText = "FINISH MISSION";
             btn.style.background = "var(--danger)";
-            btnBack.classList.add('hidden'); // No puede volver si no hace checkout
+            btn.style.color = "white";
+            btnBack.classList.add('hidden');
             const startTime = localStorage.getItem('start_time');
             if(startTime) startTimer(parseInt(startTime));
         } else {
-            btn.innerText = "EMPEZAR TRABAJO";
+            btn.innerText = "START MISSION";
             btn.style.background = "var(--primary)";
+            btn.style.color = "black";
             btnBack.classList.remove('hidden');
             clearInterval(timerInterval);
             document.getElementById('timer').innerText = "00:00:00";
@@ -177,32 +255,26 @@
     async function handlePunch() {
         const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
         const notes = document.getElementById('staff_notes').value;
-        if(isClocked && notes.length < 5) return alert("Por favor, escribe un reporte antes de terminar.");
+        if(isClocked && notes.length < 5) return alert("Please provide a work report.");
 
         toggleLoader(true);
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            const lat = pos.coords.latitude;
-            const lon = pos.coords.longitude;
-            const type = isClocked ? 'out' : 'in';
-
             const payload = {
                 action: 'worker_update',
                 id: activeJob.id,
-                type: type,
+                type: isClocked ? 'out' : 'in',
                 notas: notes,
-                lat: lat,
-                lon: lon,
+                lat: pos.coords.latitude,
+                lon: pos.coords.longitude,
                 workerName: workerData.name,
-                email: workerData.email || "", // Asegúrate de tener el email en el login
-                compania: "BCH"
+                compania: "ALDO PROPERTIES"
             };
 
             try {
                 const response = await fetch(URL_SCRIPT, { method: 'POST', body: JSON.stringify(payload) });
                 const resData = await response.json();
-                
                 if(resData.success) {
-                    if(type === 'in') {
+                    if(!isClocked) {
                         localStorage.setItem('active_job_id', activeJob.id);
                         localStorage.setItem('active_job_data', JSON.stringify(activeJob));
                         localStorage.setItem('start_time', Date.now());
@@ -210,14 +282,14 @@
                         localStorage.removeItem('active_job_id');
                         localStorage.removeItem('active_job_data');
                         localStorage.removeItem('start_time');
-                        document.getElementById('view_detail').classList.add('hidden'); // Vuelve a la lista
+                        closeDetail();
                     }
                     updateUI();
                     await loadJobs();
                 }
-            } catch(e) { alert("Error al conectar con servidor"); }
+            } catch(e) { alert("Link Error"); }
             toggleLoader(false);
-        }, () => { alert("Error: El GPS es obligatorio para marcar asistencia."); toggleLoader(false); }, {enableHighAccuracy: true});
+        }, () => { alert("GPS REQUIRED"); toggleLoader(false); }, {enableHighAccuracy: true});
     }
 
     function startTimer(start) {
