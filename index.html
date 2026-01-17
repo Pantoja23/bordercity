@@ -330,64 +330,46 @@ footer {
 </footer>
 
     <script>
-// CONFIGURACIÓN - Link Directo de Aldo Properties
-const JSON_FILE = "img/propiedades.json"; 
-const BASE_URL = "https://script.google.com/macros/s/AKfycbxtDQA2KFjRIFwEV4VZJrtGSaacJW0lexFNj8w212ctNnaSNiDGdvlZKYgGuIw70huf/exec";
+const BASE_URL = "https://script.google.com/macros/s/AKfycbw1mm6t71hpSCAQfJaFS_CZM9LcnxEsYI260KKlgRQeR-bNTQPoinHLH_thLBByMGk7Ow/exec";
 
 function navegar(accion) {
   window.top.location.href = BASE_URL + "?action=" + accion;
 }
 
 window.onload = () => {
-  fetch(JSON_FILE)
-    .then(response => {
-      if (!response.ok) throw new Error("Servidor no responde");
-      return response.json();
+  // LLAMADA DIRECTA AL CEREBRO DE GOOGLE
+  google.script.run
+    .withSuccessHandler(dibujarCasas)
+    .withFailureHandler(err => {
+      document.getElementById("grid-propietaria").innerHTML = " <p id='loader'>ERROR DE CONEXIÓN CON EL EXCEL DEL DUEÑO.</p>";
     })
-    .then(data => dibujarCasas(data))
-    .catch(err => {
-      console.error(err);
-      document.getElementById("grid-propietaria").innerHTML = 
-        `<p id='loader' style='color:#ff4444'>ERROR: Verifica que el archivo JSON en Drive sea público.<br><small>${err.message}</small></p>`;
-    });
+    .getPropiedades();
 };
 
 function dibujarCasas(properties) {
   const container = document.getElementById("grid-propietaria");
   
-  const disponibles = properties.filter(c => 
-    c.estatus === "For Rent" || c.estatus === "Coming Soon" || c.estatus === "Cooming Soon"
-  );
-
-  if (disponibles.length === 0) {
-    container.innerHTML = "<p id='loader'>NO HAY PROPIEDADES DISPONIBLES.</p>";
-    return;
-  }
+  // FILTRO: Solo lo que NO dice "Rented"
+  const disponibles = properties.filter(c => c.estatus !== "Rented");
 
   container.innerHTML = disponibles.map(c => {
     const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(c.direccion + " El Paso, TX");
     return `
     <div class="property-card">
-      <div class="prop-img" style="background-image:url('${c.foto}')">
-        <div class="badge" style="background:${c.estatus.includes('Rent') ? 'var(--primary)' : 'var(--accent)'}; color:#000;">
-          ${c.estatus}
-        </div>
+      <div class="prop-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600')">
+        <div class="badge">${c.estatus}</div>
       </div>
       <div class="prop-info">
         <a href="${mapsLink}" target="_blank" style="text-decoration:none; color:inherit;">
-          <h3 style="cursor:pointer">📍 ${c.direccion}</h3>
+          <h3>📍 ${c.direccion}</h3>
         </a>
-        <p class="prop-price">$${Number(c.precio).toLocaleString()} / mo</p>
-        <div class="prop-details">
-          <span>🛏️ ${c.habitaciones} Beds</span>
-          <span>🛁 ${c.banios} Baths</span>
-        </div>
+        <p class="prop-price">$${c.precio} / mo</p>
         <button class="btn-apply" onclick="navegar('apply&house=' + encodeURIComponent('${c.direccion}'))">
           APPLY TO RENT
         </button>
       </div>
-    </div>
-  `}).join("");
+    </div>`;
+  }).join("");
 }
 </script>
 </body>
