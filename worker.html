@@ -3,115 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aldo Properties | Worker Ops</title>
-    
+    <title>Aldo Properties | Master Worker Ops</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        :root {
-            --primary: #00ff88; /* Verde Neón para Workers */
-            --accent: #ffcc33; 
-            --bg: #030505;
-            --card: rgba(20, 25, 25, 0.95);
-            --danger: #ff4444;
-            --border: rgba(0, 255, 136, 0.2);
-        }
-
+        :root { --primary: #00ff88; --accent: #ffcc33; --bg: #030505; --card: rgba(20, 25, 25, 0.95); --danger: #ff4444; --border: rgba(0, 255, 136, 0.2); }
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-
-        body { 
-            margin: 0; 
-            font-family: 'Rajdhani', sans-serif; 
-            background: var(--bg); 
-            color: white; 
-            height: 100vh; 
-            overflow-x: hidden;
-        }
-
+        body { margin: 0; font-family: 'Rajdhani', sans-serif; background: var(--bg); color: white; height: 100vh; overflow-x: hidden; }
         .hidden { display: none !important; }
-
-        /* HEADER APP */
-        header {
-            padding: 15px 20px;
-            background: rgba(0,0,0,0.9);
-            border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 100;
-        }
-
+        header { padding: 15px 20px; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .logo-text { font-family: 'Orbitron'; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
-
-        /* VISTAS */
         .view { padding: 20px; min-height: calc(100vh - 60px); }
-
-        /* LOGIN */
-        #view_login { display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .login-box {
-            width: 100%; max-width: 350px; padding: 30px;
-            background: var(--card); border-radius: 25px; border: 1px solid var(--border);
-            text-align: center; box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
-        }
-
-        /* TARJETAS DE TRABAJO */
-        .job-card {
-            background: var(--card); border-radius: 18px; padding: 20px;
-            margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s;
-        }
-        .job-card:active { transform: scale(0.98); background: rgba(0, 255, 136, 0.05); }
-
-        /* BOTONES NATIVOS */
-        .btn-main {
-            width: 100%; padding: 18px; border-radius: 15px; border: none;
-            background: var(--primary); color: black; font-family: 'Orbitron';
-            font-weight: bold; font-size: 1rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
-        }
-
-        /* DETALLE DE TRABAJO */
-        .detail-view {
-            position: fixed; inset: 0; background: var(--bg); z-index: 1000;
-            padding: 20px; display: flex; flex-direction: column; overflow-y: auto;
-        }
-
-        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-        .btn-action {
-            background: rgba(255,255,255,0.05); height: 65px; border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; border: 1px solid var(--border); font-size: 1.5rem;
-        }
-
-        #timer {
-            font-size: 3.5rem; font-family: 'Orbitron'; text-align: center;
-            margin: 20px 0; color: var(--primary); font-weight: 700;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
-        }
-
-        textarea {
-            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            border-radius: 15px; color: white; padding: 15px; height: 100px;
-            font-family: 'Rajdhani'; font-size: 1rem; margin-top: 10px; outline: none;
-        }
-
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid var(--primary);
-            border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;
-        }
+        .login-box { width: 100%; max-width: 350px; padding: 30px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); text-align: center; margin: 100px auto; }
+        .job-card { background: var(--card); border-radius: 18px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .btn-main { width: 100%; padding: 18px; border-radius: 15px; border: none; background: var(--primary); color: black; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; }
+        .detail-view { position: fixed; inset: 0; background: var(--bg); z-index: 1000; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
+        .finance-panel { background: rgba(255, 204, 51, 0.05); border: 1px dashed var(--accent); padding: 15px; border-radius: 15px; margin: 15px 0; }
+        .money-input { width: 100%; background: #000; border: 1px solid #444; color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-family: 'Orbitron'; font-size: 0.9rem; }
+        #timer { font-size: 3rem; font-family: 'Orbitron'; text-align: center; margin: 15px 0; color: var(--primary); }
+        .spinner { width: 50px; height: 50px; border: 5px solid var(--primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .btn-action { background: rgba(255,255,255,0.05); height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; border: 1px solid var(--border); font-size: 1.3rem; }
     </style>
 </head>
 <body>
 
-<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:2000; display:flex; align-items:center; justify-content:center;"><div class="spinner"></div></div>
+<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:3000; display:flex; align-items:center; justify-content:center;"><div class="spinner"></div></div>
 
 <div id="view_login" class="view">
     <div class="login-box">
-        <div style="font-family:'Orbitron'; color:var(--primary); font-size:1.4rem; margin-bottom:10px;">ALDO PROPERTIES</div>
-        <div style="font-size:0.8rem; letter-spacing:2px; color:#888; margin-bottom:30px;">FIELD OPS SYSTEM</div>
-        <input type="text" id="user_id" placeholder="WORKER ID" style="width:100%; padding:15px; margin-bottom:12px; background:#111; border:1px solid #333; color:white; border-radius:10px; font-family:'Orbitron';">
-        <input type="password" id="user_pass" placeholder="PASSWORD" style="width:100%; padding:15px; margin-bottom:25px; background:#111; border:1px solid #333; color:white; border-radius:10px; font-family:'Orbitron';">
+        <div style="font-family:'Orbitron'; color:var(--primary); font-size:1.4rem; margin-bottom:30px;">ALDO PROPERTIES</div>
+        <input type="text" id="user_id" placeholder="ID" class="money-input">
+        <input type="password" id="user_pass" placeholder="PASSWORD" class="money-input">
         <button onclick="handleLogin()" class="btn-main">INITIALIZE</button>
     </div>
 </div>
@@ -119,24 +43,79 @@
 <div id="view_list" class="view hidden">
     <header>
         <div class="logo-text">ALDO PROPERTIES | STAFF</div>
-        <button onclick="logout()" style="background:none; border:none; color:var(--danger); font-size:1.3rem;"><i class="fas fa-power-off"></i></button>
+        <button onclick="logout()" style="background:none; border:none; color:var(--danger);"><i class="fas fa-power-off"></i></button>
     </header>
-    <div style="padding: 20px 0;">
-        <h2 style="font-family:'Orbitron'; font-size:1.1rem; color:var(--accent); margin-bottom:20px;">ASSIGNED MISSIONS</h2>
-        <div id="jobs_container"></div>
+    
+    <div id="master_actions" class="hidden" style="margin: 20px 0;">
+        <button onclick="openAddWorker()" class="btn-main" style="background: var(--accent); color: black;">
+            <i class="fas fa-user-plus"></i> ADD CREW MEMBER
+        </button>
     </div>
+
+    <h2 id="list_title" style="font-family:'Orbitron'; font-size:1rem; color:var(--accent); margin: 20px 0;">MISSIONS</h2>
+    <div id="jobs_container"></div>
+</div>
+
+<div id="view_add_worker" class="detail-view hidden">
+    <button onclick="closeAddWorker()" style="background:none; border:none; color:white; margin-bottom:20px;">← CANCEL</button>
+    <h2 style="font-family:'Orbitron'; color:var(--accent);">NEW CREW MEMBER</h2>
+    <input type="text" id="new_worker_name" class="money-input" placeholder="Nombre Completo">
+    <input type="text" id="new_worker_id" class="money-input" placeholder="ID (Login)">
+    <input type="email" id="new_worker_email" class="money-input" placeholder="Email">
+    <input type="text" id="new_worker_pass" class="money-input" placeholder="Password">
+    <button onclick="saveWorker()" class="btn-main">CREATE ACCOUNT</button>
 </div>
 
 <div id="view_detail" class="detail-view hidden">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
         <button id="btn_back" onclick="closeDetail()" style="background:none; border:1px solid #555; color:white; padding:8px 15px; border-radius:10px; font-family:'Orbitron'; font-size:0.7rem;">← BACK</button>
-        <span style="font-family:'Orbitron'; color:var(--primary); font-size:0.8rem;">MISSION BRIEF</span>
+        <span id="det_worker_tag" style="font-family:'Orbitron'; color:var(--primary); font-size:0.7rem;"></span>
     </div>
     
-    <h2 id="det_addr" style="margin:0; color:var(--primary); font-size:1.8rem; font-family:'Orbitron';"></h2>
-    <p id="det_client" style="color:var(--accent); margin:10px 0; font-size:1.1rem;"></p>
-    <div id="det_service" style="font-size:1rem; color:#aaa; line-height:1.4; background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;"></div>
+    <div id="admin_assign_box" class="hidden" style="background:#222; padding:15px; border-radius:10px; margin-top:10px; border:1px solid #444;">
+    <label style="font-size:0.8rem; color:#aaa;">ASSIGN MISSION TO:</label>
+    <select id="worker_selector" style="width:100%; padding:10px; background:#000; color:white; border:1px solid var(--accent); margin-top:5px;">
+        <option value="">-- Select Crew Member --</option>
+    </select>
+    <button onclick="saveAssignment()" style="width:100%; margin-top:10px; background:var(--accent); color:black; font-weight:bold; padding:8px; border-radius:5px;">CONFIRM ASSIGNMENT</button>
+</div>
 
+    <h2 id="det_addr" style="font-family:'Orbitron'; color:var(--primary); margin:0; font-size: 1.5rem;"></h2>
+    <p id="det_client" style="color:var(--accent); margin: 5px 0;"></p>
+    <div id="det_service" style="color:#aaa; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; margin: 10px 0;"></div>
+
+    <div id="master_finance" class="hidden" style="background: rgba(255, 204, 51, 0.05); border: 1px dashed var(--accent); padding: 15px; border-radius: 15px; margin: 15px 0;">
+        <h3 style="color:var(--accent); border-bottom:1px solid #444; padding-bottom:10px; font-family:'Orbitron'; font-size: 1rem;">FINANCE CONTROL</h3>
+        
+        <div style="margin-top:10px;">
+            <label style="font-size:0.8rem; color:#aaa;">TRANSACTION TYPE</label>
+            <select id="fin_type" class="money-input" style="margin-top:5px;">
+                <option value="PRESUPUESTO">SET JOB TOTAL (PRESUPUESTO)</option>
+                <option value="ABONO">PAYMENT RECEIVED (IN)</option>
+                <option value="GASTO">EXPENSE / MATERIAL (OUT)</option>
+            </select>
+        </div>
+
+        <div style="margin-top:10px;">
+            <label style="font-size:0.8rem; color:#aaa;">AMOUNT ($)</label>
+            <input type="number" id="fin_amount" class="money-input" placeholder="0.00" style="margin-top:5px;">
+        </div>
+
+        <div style="margin-top:10px;">
+            <label style="font-size:0.8rem; color:#aaa;">CONCEPT / NOTES</label>
+            <input type="text" id="fin_note" class="money-input" placeholder="What is this for?" style="margin-top:5px;">
+        </div>
+
+        <button onclick="handleFinance()" class="btn-main" style="background:var(--accent); color:black; height: 50px; margin-top:10px;">
+            POST MONEY
+        </button>
+        
+        <div style="text-align: center; margin-top: 10px;">
+            <span style="color:#aaa; font-size:0.8rem;">PENDING BALANCE: </span>
+            <b id="det_balance" style="color:var(--accent);"></b>
+        </div>
+    </div>
+    
     <div class="action-grid">
         <a id="btn_wa" class="btn-action" style="color:#25D366;"><i class="fab fa-whatsapp"></i></a>
         <a id="btn_maps" class="btn-action" style="color:#4285F4;"><i class="fas fa-map-marker-alt"></i></a>
@@ -144,152 +123,245 @@
     </div>
 
     <div id="timer">00:00:00</div>
-
-    <div style="margin-bottom:20px;">
-        <label style="color:var(--primary); font-family:'Orbitron'; font-size:0.7rem;">WORK LOG / FINAL REPORT:</label>
-        <textarea id="staff_notes" placeholder="Describe the solution..."></textarea>
-    </div>
-
-    <button id="btn_punch" class="btn-main" onclick="handlePunch()">LOADING...</button>
+    <textarea id="staff_notes" style="width:100%; height:80px; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:15px; color:white; padding:10px; outline:none;" placeholder="Reporte final..."></textarea>
+    <button id="btn_punch" class="btn-main" onclick="handlePunch()" style="margin-top:15px;">START MISSION</button>
 </div>
 
 <script>
-    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycby8VcBwqO6JL8C7Rh_oI2ehcJL1nCzG-FLs6x5NYYPkgxNuw5gzU5zVShyz3eeyvfOsMQ/exec"; 
+    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyekwSY3qJwie5bctOwbNHQAdctKP6I0V3tuHoa67kCMD1n7cUdo_NFYM5ZeUxfrKPbWg/exec"; 
     let workerData = JSON.parse(localStorage.getItem('aldo_worker'));
     let activeJob = null;
     let timerInterval;
 
-    window.onload = () => {
-        if (workerData) showApp();
-    };
+    window.onload = () => { if (workerData) showApp(); };
 
     async function handleLogin() {
-        const user = document.getElementById('user_id').value;
-        const pass = document.getElementById('user_pass').value;
+        const u = document.getElementById('user_id').value;
+        const p = document.getElementById('user_pass').value;
         toggleLoader(true);
         try {
-            const res = await fetch(`${URL_SCRIPT}?action=login_staff&user=${user}&pass=${pass}`);
+            const res = await fetch(`${URL_SCRIPT}?action=login_staff&user=${u}&pass=${p}`);
             const data = await res.json();
             if(data.success) {
                 localStorage.setItem('aldo_worker', JSON.stringify(data));
                 workerData = data;
                 showApp();
             } else { alert("ACCESS DENIED"); }
-        } catch(e) { alert("CONNECTION ERROR"); }
+        } catch(e) { alert("ERROR"); }
         toggleLoader(false);
     }
 
     async function showApp() {
         document.getElementById('view_login').classList.add('hidden');
         document.getElementById('view_list').classList.remove('hidden');
-        await loadJobs();
-
-        const savedJobId = localStorage.getItem('active_job_id');
-        if(savedJobId) {
-            const job = JSON.parse(localStorage.getItem('active_job_data'));
-            if(job) openJob(job);
+        
+        // REGLA: Solo Master Worker o jpantoja ven el botón de agregar personal
+        const esMaster = (workerData.id === 'Master Worker' || workerData.id === 'jpantoja');
+        if(esMaster) {
+            document.getElementById('master_actions').classList.remove('hidden');
+            document.getElementById('list_title').innerText = "CREW MISSIONS (MASTER)";
         }
+        loadJobs();
     }
 
-    async function loadJobs() {
-        try {
-            const res = await fetch(`${URL_SCRIPT}?action=get_jobs&rol=TRABAJADOR&name=${encodeURIComponent(workerData.name)}`);
-            const jobs = await res.json();
-            document.getElementById('jobs_container').innerHTML = jobs.map(j => `
-                <div class="job-card" onclick='openJob(${JSON.stringify(j)})'>
-                    <div style="flex:1">
-                        <div style="font-family:'Orbitron'; font-size:1rem; color:white; margin-bottom:5px;">${j.direccion}</div>
-                        <div style="color:var(--primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">${j.servicio}</div>
-                    </div>
-                    <i class="fas fa-chevron-right" style="color:#444;"></i>
-                </div>
-            `).join('');
-        } catch(e) { console.error("Error loading jobs"); }
+    // Actualiza tu función loadJobs para que sea más segura
+async function loadJobs() {
+    const res = await fetch(`${URL_SCRIPT}?action=get_jobs&rol=${workerData.rol}&name=${encodeURIComponent(workerData.name)}&userId=${workerData.id}`);
+    const jobs = await res.json();
+    
+    const esMaster = (workerData.rol === 'MASTER' || workerData.rol === 'LANDLORD' || workerData.rol === 'ADMIN');
+
+    document.getElementById('jobs_container').innerHTML = jobs.map((j, index) => `
+        <div class="job-card" onclick='openJobByIndex(${index})'>
+            <div><b>${j.direccion}</b><br><small>${j.asignado_a} - ${j.servicio}</small></div>
+            <div style="text-align:right">
+                <b style="color:var(--accent)">${esMaster ? '$'+j.balance_pendiente : ''}</b><br>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    `).join('');
+    
+    // Guardamos los trabajos en una variable global para abrirlos fácil
+    window.currentJobs = jobs; 
+}
+
+// Nueva función para abrir trabajos sin que se "apendeje" por el JSON
+function openJobByIndex(index) {
+    const j = window.currentJobs[index];
+    activeJob = j;
+    
+    document.getElementById('view_detail').classList.remove('hidden');
+    document.getElementById('det_addr').innerText = j.direccion;
+    document.getElementById('det_client').innerText = j.cliente;
+    document.getElementById('det_service').innerText = j.servicio;
+    document.getElementById('det_worker_tag').innerText = `WORKER: ${j.asignado_a}`;
+
+    const esMaster = (workerData.rol === 'MASTER' || workerData.rol === 'LANDLORD' || workerData.rol === 'ADMIN');
+
+    if (esMaster) {
+        document.getElementById('det_balance').innerText = `$${j.balance_pendiente}`;
+        document.getElementById('master_finance').classList.remove('hidden');
+        document.getElementById('admin_assign_box').classList.remove('hidden');
+        loadCrewList();
+    } else {
+        document.getElementById('det_balance').innerText = "PRIVATE";
+        document.getElementById('master_finance').classList.add('hidden');
+        document.getElementById('admin_assign_box').classList.add('hidden');
     }
+
+    // Configurar botones de contacto
+    document.getElementById('btn_wa').onclick = () => window.open(`https://wa.me/${String(j.telefono).replace(/\D/g, '')}`, '_blank');
+    // Busca esta línea en tu openJobByIndex y cámbiala:
+document.getElementById('btn_maps').onclick = () => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.direccion)}`, '_blank');
+    document.getElementById('btn_tel').onclick = () => window.location.href = `tel:${j.telefono}`;
+    
+    updateUI();
+}
 
     function openJob(j) {
-        activeJob = j;
-        document.getElementById('view_detail').classList.remove('hidden');
-        document.getElementById('det_addr').innerText = j.direccion;
-        document.getElementById('det_client').innerText = j.cliente;
-        document.getElementById('det_service').innerText = j.servicio;
+    activeJob = j;
+    // ... llenar datos ...
 
-        document.getElementById('btn_wa').onclick = () => {
-            const tel = String(j.telefono).replace(/\D/g, ''); 
-            window.open(`https://wa.me/${tel}?text=${encodeURIComponent('Aldo Properties Staff: I am on my way.')}`, '_blank');
-        };
-
-        document.getElementById('btn_maps').onclick = () => {
-            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.direccion)}`, '_blank');
-        };
-
-        document.getElementById('btn_tel').onclick = () => {
-            window.location.href = `tel:${j.telefono}`;
-        };
-
-        updateUI();
+    // Si el jefe del que entró es el 'Master Worker', habilitamos todo
+    if (workerData.jefeId === 'Master Worker') {
+        document.getElementById('master_finance').classList.remove('hidden');
+        document.getElementById('admin_assign_box').classList.remove('hidden');
+        document.getElementById('det_balance').innerText = `$${j.balance_pendiente}`;
+    } else {
+        document.getElementById('master_finance').classList.add('hidden');
+        document.getElementById('admin_assign_box').classList.add('hidden');
+        document.getElementById('det_balance').innerText = "---";
     }
+    updateUI();
+}
+
+    async function loadCrewList() {
+        const res = await fetch(`${URL_SCRIPT}?action=get_crew`);
+        const workers = await res.json();
+        const selector = document.getElementById('worker_selector');
+        selector.innerHTML = '<option value="">-- Select Crew Member --</option>' + 
+            workers.map(w => `<option value="${w.nombre}">${w.nombre} (${w.rol})</option>`).join('');
+    }
+
+    async function saveAssignment() {
+        const worker = document.getElementById('worker_selector').value;
+        if(!worker) return alert("Select worker");
+        toggleLoader(true);
+        const res = await fetch(URL_SCRIPT, { method:'POST', body: JSON.stringify({ action:'assign_worker', jobId:activeJob.id, workerName:worker, solicitadoPor: workerData.id })});
+        const d = await res.json();
+        if(d.success) { alert("Assigned!"); loadJobs(); }
+        toggleLoader(false);
+    }
+
+    async function saveWorker() {
+        const n = document.getElementById('new_worker_name').value;
+        const id = document.getElementById('new_worker_id').value;
+        const p = document.getElementById('new_worker_pass').value;
+        const e = document.getElementById('new_worker_email').value;
+        if(!n || !id || !p) return alert("Fill required fields");
+        toggleLoader(true);
+        const res = await fetch(URL_SCRIPT, { method:'POST', body: JSON.stringify({ action:'add_worker', nombre:n, newId:id, email:e, password:p, jefeId:workerData.id, compania:workerData.compania })});
+        const d = await res.json();
+        if(d.success) { alert("Worker Added!"); closeAddWorker(); }
+        toggleLoader(false);
+    }
+
+    async function handleFinance() {
+    const m = document.getElementById('fin_amount').value; // Monto
+    const n = document.getElementById('fin_note').value;   // Concepto (Box 3)
+    const t = document.getElementById('fin_type').value;   // Tipo seleccionado
+    
+    // Validación básica
+    if(!m || m <= 0) return alert("Please enter a valid amount");
+    if(!t) return alert("Select transaction type");
+
+    if(!confirm(`Confirm ${t} for $${m}?`)) return;
+
+    toggleLoader(true);
+    try {
+        const payload = {
+            action: 'register_payment',
+            jobId: activeJob.id,
+            monto: m,
+            concepto: n || "No notes", // Si está vacío pone "No notes"
+            tipo: t,
+            registradoPor: workerData.name,
+            metodo: "APP_ENTRY"
+        };
+
+        console.log("Sending to server:", payload); // Para depuración
+
+        const response = await fetch(URL_SCRIPT, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        
+        const result = await response.json();
+        console.log("Server response:", result);
+
+        if(result.success) {
+            alert("✅ SUCCESS!\nNew Balance: $" + result.newBalance);
+            
+            // Actualizar interfaz
+            if(document.getElementById('det_balance')) {
+                document.getElementById('det_balance').innerText = "$" + result.newBalance;
+            }
+            
+            // Limpiar campos
+            document.getElementById('fin_amount').value = "";
+            document.getElementById('fin_note').value = "";
+            
+            // Recargar la lista de trabajos para ver los cambios de status y balance
+            await loadJobs(); 
+        } else {
+            alert("❌ SERVER ERROR: " + result.error);
+        }
+    } catch(err) {
+        console.error("Fetch error:", err);
+        alert("Connection error. Check internet or Script URL.");
+    }
+    toggleLoader(false);
+}
+
+    function openAddWorker() { document.getElementById('view_add_worker').classList.remove('hidden'); }
+    function closeAddWorker() { document.getElementById('view_add_worker').classList.add('hidden'); }
+    function closeDetail() { document.getElementById('view_detail').classList.add('hidden'); }
+    function toggleLoader(s) { document.getElementById('loader').classList.toggle('hidden', !s); }
+    function logout() { localStorage.clear(); location.reload(); }
 
     function updateUI() {
         const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
         const btn = document.getElementById('btn_punch');
-        const btnBack = document.getElementById('btn_back');
-
         if(isClocked) {
-            btn.innerText = "FINISH MISSION";
-            btn.style.background = "var(--danger)";
-            btn.style.color = "white";
-            btnBack.classList.add('hidden');
-            const startTime = localStorage.getItem('start_time');
-            if(startTime) startTimer(parseInt(startTime));
+            btn.innerText = "FINISH MISSION"; btn.style.background = "var(--danger)"; btn.style.color = "white";
+            startTimer(parseInt(localStorage.getItem('start_time')));
         } else {
-            btn.innerText = "START MISSION";
-            btn.style.background = "var(--primary)";
-            btn.style.color = "black";
-            btnBack.classList.remove('hidden');
-            clearInterval(timerInterval);
-            document.getElementById('timer').innerText = "00:00:00";
+            btn.innerText = "START MISSION"; btn.style.background = "var(--primary)"; btn.style.color = "black";
+            clearInterval(timerInterval); document.getElementById('timer').innerText = "00:00:00";
         }
     }
 
     async function handlePunch() {
         const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
         const notes = document.getElementById('staff_notes').value;
-        if(isClocked && notes.length < 5) return alert("Please provide a work report.");
-
+        if(isClocked && notes.length < 5) return alert("Write a report.");
         toggleLoader(true);
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            const payload = {
-                action: 'worker_update',
-                id: activeJob.id,
-                type: isClocked ? 'out' : 'in',
-                notas: notes,
-                lat: pos.coords.latitude,
-                lon: pos.coords.longitude,
-                workerName: workerData.name,
-                compania: "ALDO PROPERTIES"
-            };
-
-            try {
-                const response = await fetch(URL_SCRIPT, { method: 'POST', body: JSON.stringify(payload) });
-                const resData = await response.json();
-                if(resData.success) {
-                    if(!isClocked) {
-                        localStorage.setItem('active_job_id', activeJob.id);
-                        localStorage.setItem('active_job_data', JSON.stringify(activeJob));
-                        localStorage.setItem('start_time', Date.now());
-                    } else {
-                        localStorage.removeItem('active_job_id');
-                        localStorage.removeItem('active_job_data');
-                        localStorage.removeItem('start_time');
-                        closeDetail();
-                    }
-                    updateUI();
-                    await loadJobs();
+            const payload = { action:'worker_update', id:activeJob.id, type:isClocked?'out':'in', notas:notes, lat:pos.coords.latitude, lon:pos.coords.longitude, workerName:workerData.name };
+            const res = await fetch(URL_SCRIPT, { method:'POST', body:JSON.stringify(payload) });
+            const d = await res.json();
+            if(d.success) {
+                if(!isClocked) {
+                    localStorage.setItem('active_job_id', activeJob.id);
+                    localStorage.setItem('start_time', Date.now());
+                } else {
+                    localStorage.removeItem('active_job_id'); localStorage.removeItem('start_time');
+                    closeDetail();
                 }
-            } catch(e) { alert("Link Error"); }
+                updateUI(); loadJobs();
+            }
             toggleLoader(false);
-        }, () => { alert("GPS REQUIRED"); toggleLoader(false); }, {enableHighAccuracy: true});
+        }, () => { alert("GPS REQ"); toggleLoader(false); });
     }
 
     function startTimer(start) {
@@ -302,10 +374,6 @@
             document.getElementById('timer').innerText = `${h}:${m}:${s}`;
         }, 1000);
     }
-
-    function toggleLoader(s) { document.getElementById('loader').classList.toggle('hidden', !s); }
-    function closeDetail() { document.getElementById('view_detail').classList.add('hidden'); }
-    function logout() { localStorage.clear(); location.reload(); }
 </script>
 </body>
 </html>
