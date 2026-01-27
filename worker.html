@@ -2,377 +2,376 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aldo Properties | Master Worker Ops</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pantoja Elite Staff</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #00ff88; --accent: #ffcc33; --bg: #030505; --card: rgba(20, 25, 25, 0.95); --danger: #ff4444; --border: rgba(0, 255, 136, 0.2); }
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-        body { margin: 0; font-family: 'Rajdhani', sans-serif; background: var(--bg); color: white; height: 100vh; overflow-x: hidden; }
+        :root { 
+            --p: #6366f1; --bg: #0b0f1a; --card: rgba(23, 28, 41, 0.85); 
+            --neon: #818cf8; --accent: #10b981; --red: #ff4b4b;
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glow: 0 0 15px rgba(99, 102, 241, 0.6);
+        }
+        
+        body, html { 
+            background: var(--bg); color: white; margin: 0; padding: 0; 
+            font-family: -apple-system, system-ui, sans-serif;
+            height: 100%; overflow: hidden; font-size: 14px;
+        }
+
+        .app-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -10%, #1e1b4b 0%, #0b0f1a 100%);
+            z-index: -1;
+        }
+
         .hidden { display: none !important; }
-        header { padding: 15px 20px; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .logo-text { font-family: 'Orbitron'; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
-        .view { padding: 20px; min-height: calc(100vh - 60px); }
-        .login-box { width: 100%; max-width: 350px; padding: 30px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); text-align: center; margin: 100px auto; }
-        .job-card { background: var(--card); border-radius: 18px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .btn-main { width: 100%; padding: 18px; border-radius: 15px; border: none; background: var(--primary); color: black; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; }
-        .detail-view { position: fixed; inset: 0; background: var(--bg); z-index: 1000; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
-        .finance-panel { background: rgba(255, 204, 51, 0.05); border: 1px dashed var(--accent); padding: 15px; border-radius: 15px; margin: 15px 0; }
-        .money-input { width: 100%; background: #000; border: 1px solid #444; color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-family: 'Orbitron'; font-size: 0.9rem; }
-        #timer { font-size: 3rem; font-family: 'Orbitron'; text-align: center; margin: 15px 0; color: var(--primary); }
-        .spinner { width: 50px; height: 50px; border: 5px solid var(--primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+
+        .btn-main {
+            width: 100%; padding: 16px; border-radius: 16px; border: none;
+            background: linear-gradient(135deg, var(--p), #4338ca);
+            color: white; font-weight: 800; font-size: 14px; text-transform: uppercase;
+            box-shadow: var(--glow); transition: 0.3s all ease;
+            cursor: pointer; letter-spacing: 1px;
+        }
+        .btn-main:active { transform: scale(0.96); filter: brightness(1.2); }
+        .btn-main.active { background: linear-gradient(135deg, var(--red), #991b1b); box-shadow: 0 0 15px rgba(255, 75, 75, 0.5); }
+
+        .native-card {
+            background: var(--card); backdrop-filter: blur(12px);
+            border-radius: 16px; padding: 15px; margin-bottom: 12px;
+            border: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.3s;
+        }
+
+        .detail-view {
+            position: fixed; inset: 0; background: rgba(11, 15, 26, 0.98); z-index: 1000;
+            padding: calc(env(safe-area-inset-top) + 10px) 15px 20px;
+            overflow-y: auto; box-sizing: border-box;
+        }
+
+        .action-btn {
+            background: var(--card); height: 55px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; border: 1px solid var(--glass-border); font-size: 20px; text-decoration: none;
+        }
+
+        .history-box {
+            background: rgba(99, 102, 241, 0.05); border-radius: 14px;
+            padding: 12px; margin: 8px 0; border: 1px solid rgba(99, 102, 241, 0.3);
+            max-height: 120px; overflow-y: auto; font-size: 12px; color: #cbd5e1;
+            line-height: 1.5; white-space: pre-wrap;
+        }
+
+        #timer { 
+            font-size: 48px; font-weight: 800; text-align: center; margin: 15px 0; 
+            font-family: monospace; letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--neon);
+        }
+
+        .notes-container {
+            background: rgba(0, 0, 0, 0.2); border: 1px solid var(--p);
+            border-radius: 14px; padding: 12px; margin-top: 10px;
+        }
+        textarea { width: 100%; background: transparent; border: none; color: white; font-size: 14px; outline: none; resize: none; height: 60px; }
+
+        input {
+            width: 100%; background: var(--card); border: 1px solid var(--glass-border); 
+            padding: 16px; border-radius: 14px; color: white; margin-bottom: 12px; box-sizing: border-box; outline: none;
+        }
+
+        .week-badge {
+            background: rgba(129, 140, 248, 0.2);
+            color: var(--neon);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 10px;
+            border: 1px solid var(--neon);
+            text-transform: uppercase;
+        }
+
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--p); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-        .btn-action { background: rgba(255,255,255,0.05); height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; border: 1px solid var(--border); font-size: 1.3rem; }
     </style>
 </head>
 <body>
 
-<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:3000; display:flex; align-items:center; justify-content:center;"><div class="spinner"></div></div>
+<div class="app-bg"></div>
 
-<div id="view_login" class="view">
-    <div class="login-box">
-        <div style="font-family:'Orbitron'; color:var(--primary); font-size:1.4rem; margin-bottom:30px;">ALDO PROPERTIES</div>
-        <input type="text" id="user_id" placeholder="ID" class="money-input">
-        <input type="password" id="user_pass" placeholder="PASSWORD" class="money-input">
-        <button onclick="handleLogin()" class="btn-main">INITIALIZE</button>
+<div id="loader" class="hidden" style="position:fixed; inset:0; background:rgba(11,15,26,0.95); z-index:10001; display:flex; align-items:center; justify-content:center;">
+    <div class="spinner"></div>
+</div>
+
+<div id="view_login" style="height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
+    <img src="img/logo.png" style="width:100px; margin-bottom:30px; filter: drop-shadow(0 0 15px var(--p));">
+    <div style="width:100%; max-width:300px;">
+        <input type="email" id="login_email" placeholder="Usuario / Email">
+        <input type="password" id="login_pass" placeholder="Contraseña">
+        <button onclick="handleLogin()" class="btn-main">CONECTAR SISTEMA</button>
     </div>
 </div>
 
-<div id="view_list" class="view hidden">
-    <header>
-        <div class="logo-text">ALDO PROPERTIES | STAFF</div>
-        <button onclick="logout()" style="background:none; border:none; color:var(--danger);"><i class="fas fa-power-off"></i></button>
-    </header>
-    
-    <div id="master_actions" class="hidden" style="margin: 20px 0;">
-        <button onclick="openAddWorker()" class="btn-main" style="background: var(--accent); color: black;">
-            <i class="fas fa-user-plus"></i> ADD CREW MEMBER
-        </button>
+<div id="view_list" class="hidden" style="padding:15px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-top:10px;">
+        <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <h2 id="welcome_name" style="margin:0; font-size:22px;">Hola</h2>
+                <span id="week_display" class="week-badge">Semana --</span>
+            </div>
+            <small id="display_company" style="color:var(--neon); font-weight:800; letter-spacing: 1px;">PANTOJA ELITE STAFF</small>
+        </div>
+        <button onclick="logout()" style="background:var(--card); border:1px solid var(--glass-border); color:var(--red); width:46px; height:46px; border-radius:14px;"><i class="fas fa-power-off"></i></button>
     </div>
-
-    <h2 id="list_title" style="font-family:'Orbitron'; font-size:1rem; color:var(--accent); margin: 20px 0;">MISSIONS</h2>
     <div id="jobs_container"></div>
 </div>
 
-<div id="view_add_worker" class="detail-view hidden">
-    <button onclick="closeAddWorker()" style="background:none; border:none; color:white; margin-bottom:20px;">← CANCEL</button>
-    <h2 style="font-family:'Orbitron'; color:var(--accent);">NEW CREW MEMBER</h2>
-    <input type="text" id="new_worker_name" class="money-input" placeholder="Nombre Completo">
-    <input type="text" id="new_worker_id" class="money-input" placeholder="ID (Login)">
-    <input type="email" id="new_worker_email" class="money-input" placeholder="Email">
-    <input type="text" id="new_worker_pass" class="money-input" placeholder="Password">
-    <button onclick="saveWorker()" class="btn-main">CREATE ACCOUNT</button>
-</div>
-
 <div id="view_detail" class="detail-view hidden">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <button id="btn_back" onclick="closeDetail()" style="background:none; border:1px solid #555; color:white; padding:8px 15px; border-radius:10px; font-family:'Orbitron'; font-size:0.7rem;">← BACK</button>
-        <span id="det_worker_tag" style="font-family:'Orbitron'; color:var(--primary); font-size:0.7rem;"></span>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <button onclick="closeDetail()" style="background:var(--card); border:1px solid var(--glass-border); color:white; padding:10px 15px; border-radius:12px; font-size:11px; font-weight:bold;">VOLVER</button>
+        <img src="img/logo.png" style="width:55px; filter: drop-shadow(0 0 10px var(--p));">
     </div>
     
-    <div id="admin_assign_box" class="hidden" style="background:#222; padding:15px; border-radius:10px; margin-top:10px; border:1px solid #444;">
-    <label style="font-size:0.8rem; color:#aaa;">ASSIGN MISSION TO:</label>
-    <select id="worker_selector" style="width:100%; padding:10px; background:#000; color:white; border:1px solid var(--accent); margin-top:5px;">
-        <option value="">-- Select Crew Member --</option>
-    </select>
-    <button onclick="saveAssignment()" style="width:100%; margin-top:10px; background:var(--accent); color:black; font-weight:bold; padding:8px; border-radius:5px;">CONFIRM ASSIGNMENT</button>
-</div>
+    <h1 id="det_client" style="font-size:30px; margin:0; letter-spacing:-1px;"></h1>
+    <div id="det_service" style="color:var(--neon); font-weight:800; font-size:12px; text-transform:uppercase; margin-bottom:20px;"></div>
 
-    <h2 id="det_addr" style="font-family:'Orbitron'; color:var(--primary); margin:0; font-size: 1.5rem;"></h2>
-    <p id="det_client" style="color:var(--accent); margin: 5px 0;"></p>
-    <div id="det_service" style="color:#aaa; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; margin: 10px 0;"></div>
-
-    <div id="master_finance" class="hidden" style="background: rgba(255, 204, 51, 0.05); border: 1px dashed var(--accent); padding: 15px; border-radius: 15px; margin: 15px 0;">
-        <h3 style="color:var(--accent); border-bottom:1px solid #444; padding-bottom:10px; font-family:'Orbitron'; font-size: 1rem;">FINANCE CONTROL</h3>
-        
-        <div style="margin-top:10px;">
-            <label style="font-size:0.8rem; color:#aaa;">TRANSACTION TYPE</label>
-            <select id="fin_type" class="money-input" style="margin-top:5px;">
-                <option value="PRESUPUESTO">SET JOB TOTAL (PRESUPUESTO)</option>
-                <option value="ABONO">PAYMENT RECEIVED (IN)</option>
-                <option value="GASTO">EXPENSE / MATERIAL (OUT)</option>
-            </select>
-        </div>
-
-        <div style="margin-top:10px;">
-            <label style="font-size:0.8rem; color:#aaa;">AMOUNT ($)</label>
-            <input type="number" id="fin_amount" class="money-input" placeholder="0.00" style="margin-top:5px;">
-        </div>
-
-        <div style="margin-top:10px;">
-            <label style="font-size:0.8rem; color:#aaa;">CONCEPT / NOTES</label>
-            <input type="text" id="fin_note" class="money-input" placeholder="What is this for?" style="margin-top:5px;">
-        </div>
-
-        <button onclick="handleFinance()" class="btn-main" style="background:var(--accent); color:black; height: 50px; margin-top:10px;">
-            POST MONEY
-        </button>
-        
-        <div style="text-align: center; margin-top: 10px;">
-            <span style="color:#aaa; font-size:0.8rem;">PENDING BALANCE: </span>
-            <b id="det_balance" style="color:var(--accent);"></b>
-        </div>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-bottom:20px;">
+        <a id="link_wa" class="action-btn" style="color:#22c55e;"><i class="fab fa-whatsapp"></i></a>
+        <a id="link_map" target="_blank" class="action-btn" style="color:#3b82f6;"><i class="fas fa-map-marker-alt"></i></a>
+        <a id="link_tel" class="action-btn" style="color:#94a3b8;"><i class="fas fa-phone"></i></a>
     </div>
-    
-    <div class="action-grid">
-        <a id="btn_wa" class="btn-action" style="color:#25D366;"><i class="fab fa-whatsapp"></i></a>
-        <a id="btn_maps" class="btn-action" style="color:#4285F4;"><i class="fas fa-map-marker-alt"></i></a>
-        <a id="btn_tel" class="btn-action" style="color:#94a3b8;"><i class="fas fa-phone"></i></a>
+
+    <div style="background:var(--card); padding:15px; border-radius:18px; border:1px solid var(--glass-border); margin-bottom:15px;">
+        <small style="color:var(--p); font-weight:900; font-size:10px;">INSTRUCCIONES</small>
+        <p id="det_admin" style="margin:8px 0 0 0; font-size:14px; color:#e2e8f0;"></p>
+    </div>
+
+    <div>
+        <small style="color:var(--accent); font-weight:900; font-size:10px;">AVANCES PREVIOS</small>
+        <div id="history_notes" class="history-box">Cargando...</div>
     </div>
 
     <div id="timer">00:00:00</div>
-    <textarea id="staff_notes" style="width:100%; height:80px; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:15px; color:white; padding:10px; outline:none;" placeholder="Reporte final..."></textarea>
-    <button id="btn_punch" class="btn-main" onclick="handlePunch()" style="margin-top:15px;">START MISSION</button>
+
+    <div class="notes-container">
+        <small style="color:var(--p); font-weight:900; font-size:10px;">TU REPORTE DE HOY</small>
+        <textarea id="staff_notes" placeholder="¿Qué hiciste hoy?"></textarea>
+    </div>
+
+    <div style="margin:25px 0 60px;">
+        <button id="btn_punch" class="btn-main" onclick="handlePunch()">EMPEZAR TRABAJO</button>
+    </div>
 </div>
 
 <script>
-    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyekwSY3qJwie5bctOwbNHQAdctKP6I0V3tuHoa67kCMD1n7cUdo_NFYM5ZeUxfrKPbWg/exec"; 
-    let workerData = JSON.parse(localStorage.getItem('aldo_worker'));
-    let activeJob = null;
+    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwmKM4Op3l8K6ZXipdKlAoOBSenl6CH0luwbG-o3cSA5kRi6r7fppzustZ74vdgwBTx/exec"; 
+   
+    let currentUser = localStorage.getItem('panto_user');
+    let isClocked = false;
     let timerInterval;
 
-    window.onload = () => { if (workerData) showApp(); };
+    // --- NUEVA FUNCIÓN: CAPTURAR HORA LOCAL DEL CELULAR ---
+    function getLocalTime() {
+        const ahora = new Date();
+        return ahora.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function getISOWeek() {
+        const hoy = new Date();
+        const d = new Date(Date.UTC(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()));
+        const dayNum = d.getUTCDay() || 7;
+        d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    window.onload = () => { 
+        if(currentUser) {
+            showApp(); 
+        } else {
+            const lastEmail = localStorage.getItem('panto_last_email');
+            if(lastEmail) document.getElementById('login_email').value = lastEmail;
+        }
+    };
+
+    function toggleLoader(show) { document.getElementById('loader').classList.toggle('hidden', !show); }
+
+    async function checkRecoverClock() {
+        try {
+            const res = await fetch(`${URL_SCRIPT}?action=check_status&workerName=${encodeURIComponent(currentUser)}&t=${Date.now()}`);
+            const status = await res.json();
+            if(status.active) {
+                isClocked = true;
+                localStorage.setItem('active_job_id', status.jobId);
+                localStorage.setItem('start_time', status.startTimeMillis);
+                startTimer(parseInt(status.startTimeMillis));
+            } else {
+                isClocked = false;
+                localStorage.removeItem('start_time');
+                localStorage.removeItem('active_job_id');
+                if(timerInterval) clearInterval(timerInterval);
+                document.getElementById('timer').innerText = "00:00:00";
+            }
+        } catch(e) { console.error("Error recuperando status"); }
+    }
 
     async function handleLogin() {
-        const u = document.getElementById('user_id').value;
-        const p = document.getElementById('user_pass').value;
+        const email = document.getElementById('login_email').value;
+        const pass = document.getElementById('login_pass').value;
+        if(!email || !pass) return alert("Completa los datos");
         toggleLoader(true);
         try {
-            const res = await fetch(`${URL_SCRIPT}?action=login_staff&user=${u}&pass=${p}`);
+            const res = await fetch(`${URL_SCRIPT}?action=login_staff&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(pass)}`);
             const data = await res.json();
-            if(data.success) {
-                localStorage.setItem('aldo_worker', JSON.stringify(data));
-                workerData = data;
-                showApp();
-            } else { alert("ACCESS DENIED"); }
-        } catch(e) { alert("ERROR"); }
-        toggleLoader(false);
+            if(data.success) { 
+                localStorage.setItem('panto_user', data.name);
+                localStorage.setItem('panto_last_email', email);
+                localStorage.setItem('panto_compania', data.compania);
+                location.reload(); 
+            } else { 
+                alert(data.msg || "Error de acceso"); 
+                toggleLoader(false);
+            }
+        } catch(e) { alert("Error de conexión"); toggleLoader(false); }
     }
 
     async function showApp() {
+        const compania = localStorage.getItem('panto_compania') || "PANTOJA ELITE STAFF";
         document.getElementById('view_login').classList.add('hidden');
         document.getElementById('view_list').classList.remove('hidden');
-        
-        // REGLA: Solo Master Worker o jpantoja ven el botón de agregar personal
-        const esMaster = (workerData.id === 'Master Worker' || workerData.id === 'jpantoja');
-        if(esMaster) {
-            document.getElementById('master_actions').classList.remove('hidden');
-            document.getElementById('list_title').innerText = "CREW MISSIONS (MASTER)";
-        }
-        loadJobs();
-    }
+        document.getElementById('welcome_name').innerText = "Hola, " + currentUser.split(' ')[0];
+        document.getElementById('week_display').innerText = "Semana " + getISOWeek();
+        document.getElementById('display_company').innerText = compania;
 
-    // Actualiza tu función loadJobs para que sea más segura
-async function loadJobs() {
-    const res = await fetch(`${URL_SCRIPT}?action=get_jobs&rol=${workerData.rol}&name=${encodeURIComponent(workerData.name)}&userId=${workerData.id}`);
-    const jobs = await res.json();
-    
-    const esMaster = (workerData.rol === 'MASTER' || workerData.rol === 'LANDLORD' || workerData.rol === 'ADMIN');
-
-    document.getElementById('jobs_container').innerHTML = jobs.map((j, index) => `
-        <div class="job-card" onclick='openJobByIndex(${index})'>
-            <div><b>${j.direccion}</b><br><small>${j.asignado_a} - ${j.servicio}</small></div>
-            <div style="text-align:right">
-                <b style="color:var(--accent)">${esMaster ? '$'+j.balance_pendiente : ''}</b><br>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </div>
-    `).join('');
-    
-    // Guardamos los trabajos en una variable global para abrirlos fácil
-    window.currentJobs = jobs; 
-}
-
-// Nueva función para abrir trabajos sin que se "apendeje" por el JSON
-function openJobByIndex(index) {
-    const j = window.currentJobs[index];
-    activeJob = j;
-    
-    document.getElementById('view_detail').classList.remove('hidden');
-    document.getElementById('det_addr').innerText = j.direccion;
-    document.getElementById('det_client').innerText = j.cliente;
-    document.getElementById('det_service').innerText = j.servicio;
-    document.getElementById('det_worker_tag').innerText = `WORKER: ${j.asignado_a}`;
-
-    const esMaster = (workerData.rol === 'MASTER' || workerData.rol === 'LANDLORD' || workerData.rol === 'ADMIN');
-
-    if (esMaster) {
-        document.getElementById('det_balance').innerText = `$${j.balance_pendiente}`;
-        document.getElementById('master_finance').classList.remove('hidden');
-        document.getElementById('admin_assign_box').classList.remove('hidden');
-        loadCrewList();
-    } else {
-        document.getElementById('det_balance').innerText = "PRIVATE";
-        document.getElementById('master_finance').classList.add('hidden');
-        document.getElementById('admin_assign_box').classList.add('hidden');
-    }
-
-    // Configurar botones de contacto
-    document.getElementById('btn_wa').onclick = () => window.open(`https://wa.me/${String(j.telefono).replace(/\D/g, '')}`, '_blank');
-    // Busca esta línea en tu openJobByIndex y cámbiala:
-document.getElementById('btn_maps').onclick = () => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.direccion)}`, '_blank');
-    document.getElementById('btn_tel').onclick = () => window.location.href = `tel:${j.telefono}`;
-    
-    updateUI();
-}
-
-    function openJob(j) {
-    activeJob = j;
-    // ... llenar datos ...
-
-    // Si el jefe del que entró es el 'Master Worker', habilitamos todo
-    if (workerData.jefeId === 'Master Worker') {
-        document.getElementById('master_finance').classList.remove('hidden');
-        document.getElementById('admin_assign_box').classList.remove('hidden');
-        document.getElementById('det_balance').innerText = `$${j.balance_pendiente}`;
-    } else {
-        document.getElementById('master_finance').classList.add('hidden');
-        document.getElementById('admin_assign_box').classList.add('hidden');
-        document.getElementById('det_balance').innerText = "---";
-    }
-    updateUI();
-}
-
-    async function loadCrewList() {
-        const res = await fetch(`${URL_SCRIPT}?action=get_crew`);
-        const workers = await res.json();
-        const selector = document.getElementById('worker_selector');
-        selector.innerHTML = '<option value="">-- Select Crew Member --</option>' + 
-            workers.map(w => `<option value="${w.nombre}">${w.nombre} (${w.rol})</option>`).join('');
-    }
-
-    async function saveAssignment() {
-        const worker = document.getElementById('worker_selector').value;
-        if(!worker) return alert("Select worker");
         toggleLoader(true);
-        const res = await fetch(URL_SCRIPT, { method:'POST', body: JSON.stringify({ action:'assign_worker', jobId:activeJob.id, workerName:worker, solicitadoPor: workerData.id })});
-        const d = await res.json();
-        if(d.success) { alert("Assigned!"); loadJobs(); }
+        await checkRecoverClock(); 
+        await loadJobs();          
         toggleLoader(false);
     }
 
-    async function saveWorker() {
-        const n = document.getElementById('new_worker_name').value;
-        const id = document.getElementById('new_worker_id').value;
-        const p = document.getElementById('new_worker_pass').value;
-        const e = document.getElementById('new_worker_email').value;
-        if(!n || !id || !p) return alert("Fill required fields");
-        toggleLoader(true);
-        const res = await fetch(URL_SCRIPT, { method:'POST', body: JSON.stringify({ action:'add_worker', nombre:n, newId:id, email:e, password:p, jefeId:workerData.id, compania:workerData.compania })});
-        const d = await res.json();
-        if(d.success) { alert("Worker Added!"); closeAddWorker(); }
-        toggleLoader(false);
+    async function loadJobs() {
+        try {
+            const res = await fetch(`${URL_SCRIPT}?action=get_worker_orders&workerName=${encodeURIComponent(currentUser)}`);
+            const jobs = await res.json();
+            document.getElementById('jobs_container').innerHTML = jobs.map(t => `
+                <div class="native-card" onclick='viewJob(${JSON.stringify(t)})'>
+                    <div>
+                        <h3 style="margin:0; font-size:16px;">${t.nombre_cliente}</h3>
+                        <div style="font-size:11px; color:var(--neon); margin-top:4px;">${t.servicio} • <b style="white-space:nowrap; color:white;">${t.horas_acumuladas}h acumuladas</b></div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color:var(--p);"></i>
+                </div>
+            `).join('');
+            
+            const activeId = localStorage.getItem('active_job_id');
+            if(activeId) {
+                const jobActivo = jobs.find(j => String(j.id) === String(activeId));
+                if(jobActivo) viewJob(jobActivo);
+            }
+        } catch(e) { console.error("Error cargando órdenes"); }
     }
 
-    async function handleFinance() {
-    const m = document.getElementById('fin_amount').value; // Monto
-    const n = document.getElementById('fin_note').value;   // Concepto (Box 3)
-    const t = document.getElementById('fin_type').value;   // Tipo seleccionado
-    
-    // Validación básica
-    if(!m || m <= 0) return alert("Please enter a valid amount");
-    if(!t) return alert("Select transaction type");
+    function viewJob(j) {
+        window.activeJob = j;
+        document.getElementById('view_detail').classList.remove('hidden');
+        document.getElementById('det_client').innerText = j.nombre_cliente;
+        document.getElementById('det_service').innerText = j.servicio;
+        document.getElementById('det_admin').innerText = j.instrucciones || "Sin instrucciones.";
+        document.getElementById('history_notes').innerText = j.notas_staff || "Sin reportes previos.";
 
-    if(!confirm(`Confirm ${t} for $${m}?`)) return;
-
-    toggleLoader(true);
-    try {
-        const payload = {
-            action: 'register_payment',
-            jobId: activeJob.id,
-            monto: m,
-            concepto: n || "No notes", // Si está vacío pone "No notes"
-            tipo: t,
-            registradoPor: workerData.name,
-            metodo: "APP_ENTRY"
+        document.getElementById('link_wa').onclick = () => {
+            const msg = encodeURIComponent(`Hola ${j.nombre_cliente}, le saluda el Staff de Pantoja Elite. Ya voy en camino.`);
+            window.open(`https://wa.me/${j.telefono.toString().replace(/\D/g,'')}?text=${msg}`, '_blank');
         };
 
-        console.log("Sending to server:", payload); // Para depuración
-
-        const response = await fetch(URL_SCRIPT, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        });
+        document.getElementById('link_map').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.direccion)}`;
+        document.getElementById('link_tel').href = `tel:${j.telefono}`;
         
-        const result = await response.json();
-        console.log("Server response:", result);
-
-        if(result.success) {
-            alert("✅ SUCCESS!\nNew Balance: $" + result.newBalance);
-            
-            // Actualizar interfaz
-            if(document.getElementById('det_balance')) {
-                document.getElementById('det_balance').innerText = "$" + result.newBalance;
-            }
-            
-            // Limpiar campos
-            document.getElementById('fin_amount').value = "";
-            document.getElementById('fin_note').value = "";
-            
-            // Recargar la lista de trabajos para ver los cambios de status y balance
-            await loadJobs(); 
-        } else {
-            alert("❌ SERVER ERROR: " + result.error);
-        }
-    } catch(err) {
-        console.error("Fetch error:", err);
-        alert("Connection error. Check internet or Script URL.");
-    }
-    toggleLoader(false);
-}
-
-    function openAddWorker() { document.getElementById('view_add_worker').classList.remove('hidden'); }
-    function closeAddWorker() { document.getElementById('view_add_worker').classList.add('hidden'); }
-    function closeDetail() { document.getElementById('view_detail').classList.add('hidden'); }
-    function toggleLoader(s) { document.getElementById('loader').classList.toggle('hidden', !s); }
-    function logout() { localStorage.clear(); location.reload(); }
-
-    function updateUI() {
-        const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
-        const btn = document.getElementById('btn_punch');
-        if(isClocked) {
-            btn.innerText = "FINISH MISSION"; btn.style.background = "var(--danger)"; btn.style.color = "white";
-            startTimer(parseInt(localStorage.getItem('start_time')));
-        } else {
-            btn.innerText = "START MISSION"; btn.style.background = "var(--primary)"; btn.style.color = "black";
-            clearInterval(timerInterval); document.getElementById('timer').innerText = "00:00:00";
-        }
+        updatePunchButton(isClocked && localStorage.getItem('active_job_id') == j.id);
     }
 
     async function handlePunch() {
-        const isClocked = localStorage.getItem('active_job_id') == activeJob.id;
         const notes = document.getElementById('staff_notes').value;
-        if(isClocked && notes.length < 5) return alert("Write a report.");
+        if(isClocked && notes.trim().length < 5) {
+            return alert("⚠️ Por favor escribe qué hiciste hoy en el reporte antes de finalizar.");
+        }
+        
         toggleLoader(true);
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            const payload = { action:'worker_update', id:activeJob.id, type:isClocked?'out':'in', notas:notes, lat:pos.coords.latitude, lon:pos.coords.longitude, workerName:workerData.name };
-            const res = await fetch(URL_SCRIPT, { method:'POST', body:JSON.stringify(payload) });
-            const d = await res.json();
-            if(d.success) {
-                if(!isClocked) {
-                    localStorage.setItem('active_job_id', activeJob.id);
-                    localStorage.setItem('start_time', Date.now());
+            const coords = pos.coords.latitude + "," + pos.coords.longitude;
+            const action = isClocked ? 'PUNCH_OUT' : 'PUNCH_IN';
+            const horaLocal = getLocalTime(); // CAPTURAMOS LA HORA DEL CELULAR
+            
+            try {
+                const payload = { 
+                    action: action, 
+                    worker: currentUser, 
+                    id: window.activeJob.id, 
+                    notas: notes, 
+                    coords: coords,
+                    localTime: horaLocal, // ENVIAMOS LA HORA REAL DEL CELULAR
+                    timestamp: Date.now()
+                };
+                
+                const response = await fetch(URL_SCRIPT, { 
+                    method: 'POST', 
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.text();
+                
+                if(result.includes("OK")) {
+                    if(!isClocked) { 
+                        localStorage.setItem('start_time', Date.now()); 
+                        localStorage.setItem('active_job_id', window.activeJob.id); 
+                    } else { 
+                        localStorage.removeItem('start_time'); 
+                        localStorage.removeItem('active_job_id'); 
+                    }
+                    location.reload();
                 } else {
-                    localStorage.removeItem('active_job_id'); localStorage.removeItem('start_time');
-                    closeDetail();
+                    alert("Respuesta inesperada del servidor");
+                    toggleLoader(false);
                 }
-                updateUI(); loadJobs();
+            } catch(e) { 
+                alert("Error al guardar: " + e); 
+                toggleLoader(false); 
             }
-            toggleLoader(false);
-        }, () => { alert("GPS REQ"); toggleLoader(false); });
+        }, () => { 
+            alert("❌ Error: GPS obligatorio."); 
+            toggleLoader(false); 
+        }, {enableHighAccuracy:true});
+    }
+
+    function updatePunchButton(clocked) {
+        const btn = document.getElementById('btn_punch');
+        btn.innerText = clocked ? "FINALIZAR JORNADA" : "EMPEZAR JORNADA";
+        btn.style.background = clocked ? "linear-gradient(135deg, #ff4b4b, #991b1b)" : "";
+        isClocked = clocked;
     }
 
     function startTimer(start) {
         if(timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             const diff = Math.floor((Date.now() - start) / 1000);
+            if(diff < 0) return;
             const h = Math.floor(diff / 3600).toString().padStart(2,'0');
             const m = Math.floor((diff % 3600) / 60).toString().padStart(2,'0');
             const s = Math.floor(diff % 60).toString().padStart(2,'0');
             document.getElementById('timer').innerText = `${h}:${m}:${s}`;
         }, 1000);
+    }
+
+    function closeDetail() { 
+        if(isClocked) alert("Turno activo. Finaliza para volver."); 
+        else document.getElementById('view_detail').classList.add('hidden'); 
+    }
+    
+    function logout() { 
+        if(isClocked) return alert("Finaliza primero");
+        localStorage.clear(); 
+        location.reload(); 
     }
 </script>
 </body>
